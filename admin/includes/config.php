@@ -1,4 +1,9 @@
 <?php
+    // $dbhost = "localhost";
+    // $dbuser = "u321305506_hotelre_user";
+    // $dbpass = "Wtv@562@";
+    // $dbname = "hotel";
+
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
