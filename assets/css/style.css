@@ -758,6 +758,8 @@ button:focus {
   -webkit-transition: all 0.4s linear;
   -o-transition: all 0.4s linear;
   transition: all 0.4s linear;
+  width: 260px;
+  height: 260px;
 }
 
 .accomodation_item .hotel_img .theme_btn {
