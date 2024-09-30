@@ -1,3 +1,7 @@
+<?php
+  require_once ("admin/includes/config.php");
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -34,17 +38,44 @@
                     <h2 class="title_color">Special Accomodation</h2>
                     <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast,</p>
                 </div>
+
                 <div class="row mb_30">
-                    <div class="col-lg-3 col-sm-6">
+
+                    <?php
+                        $sql = "SELECT * FROM rooms";
+                        $result = mysqli_query($conn,$sql);
+
+                        if (mysqli_num_rows($result)>0){
+                            while ($row = mysqli_fetch_row($result)){
+                                $ac_available = ($row[5] == "yes") ? "A/C" : "Non A/C";
+
+                                echo "<div class='col-lg-3 col-sm-6'>
+                                    <div class='accomodation_item text-center'>
+                                        <div class='hotel_img'>
+                                            <img src='admin/$row[2]' alt=''>
+                                            <a href='#' class='btn theme_btn button_hover'>Book Now</a>
+                                        </div>
+                                        <a href='#'><h4 class='sec_h4'>$row[1]</h4></a>
+                                        <h5>Rs. $row[6]<small>/night</small></h5>
+                                        <h6>$ac_available, $row[4] Persons</h5>
+                                    </div>
+                                </div>";
+                            }
+                        }
+                    ?>
+
+                    <!-- <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
                                 <img src="assets/image/room1.jpg" alt="">
                                 <a href="#" class="btn theme_btn button_hover">Book Now</a>
                             </div>
                             <a href="#"><h4 class="sec_h4">Double Deluxe Room</h4></a>
-                            <h5>$250<small>/night</small></h5>
+                            <h5>Rs.250<small>/night</small></h5>
+                            <h6>ac, 2persons</h5>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
@@ -55,6 +86,7 @@
                             <h5>$200<small>/night</small></h5>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
@@ -65,6 +97,7 @@
                             <h5>$750<small>/night</small></h5>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
@@ -74,7 +107,8 @@
                             <a href="#"><h4 class="sec_h4">Economy Double</h4></a>
                             <h5>$200<small>/night</small></h5>
                         </div>
-                    </div>
+                    </div> -->
+
                 </div>
             </div>
         </section>

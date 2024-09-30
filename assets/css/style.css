@@ -750,6 +750,8 @@ button:focus {
   margin-bottom: 10px;
   overflow: hidden;
   border-radius: 10px;
+  width: 260px;
+  height: 260px;
 }
 
 .accomodation_item .hotel_img img {
