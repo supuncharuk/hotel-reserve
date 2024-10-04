@@ -40,8 +40,8 @@
                 }
     
                 // Allow only certain file formats
-                if ($imageFileType != "webp" && $imageFileType != "jpg") {
-                    echo "<script>alert('Sorry, only WEBP files are allowed.')</script>";
+                if ($imageFileType != "webp" && $imageFileType != "jpg" && $imageFileType != "jpeg") {
+                    echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
                     $uploadOk = 0;
                 }
     
@@ -50,7 +50,7 @@
                 } else {
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                         // Insert image path into the database
-                        $query = "INSERT INTO rooms VALUES ($room_number,'$room_name','$target_file','$room_type',$no_persons,'$ac_availablity',$room_price)";
+                        $query = "INSERT INTO rooms(room_number,room_name,room_image_path,room_type,no_persons,ac_availability,room_price) VALUES ($room_number,'$room_name','$target_file','$room_type',$no_persons,'$ac_availablity',$room_price)";
                         if (mysqli_query($conn, $query)) {
                             echo "<script>alert('Success')</script>";
                         } else {
