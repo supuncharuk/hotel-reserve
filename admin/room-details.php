@@ -117,7 +117,15 @@
                                                     <img src="<?php echo $row[2] ?>" style="width:50px; height:50px; cursor:pointer;" data-toggle="modal" data-target="#imageModal<?php echo $row[0]; ?>">
                                                 </td>
                                                 <td><?php echo $row[6] ?></td>
-                                                <td><i class="fas fa-edit text-danger" style="font-size:16px;"></i></td>
+                                                <td>
+                                                    <a href="add-room-details.php?room_id=<?php echo $row[0]; ?>" class="btn btn-warning btn-sm mr-2">
+                                                        <i class="fas fa-pencil-alt text-dark"></i>
+                                                    </a>
+                                                    <button class="btn btn-danger btn-sm ml-2" id="<?php echo $row[0] ?>" onclick="del(this.id)">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                                
                                             </tr>
                                             
                                             <!-- Modal for view room image -->
@@ -184,6 +192,24 @@
     <script src="assets/libs/js/dataTables.rowGroup.min.js"></script>
     <script src="assets/libs/js/dataTables.select.min.js"></script>
     <script src="assets/libs/js/dataTables.fixedHeader.min.js"></script>
+
+    <script>
+        function del(id){
+            if (confirm("Do you want to delete this room details") == false){
+                return false;
+            }
+
+            $.ajax({
+                url: 'includes/room-del-action.php',
+                type: 'POST',
+                data: {id:id},
+                success: function(){
+                    alert("Successfully deleted");
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
 </body>
  
 </html>
