@@ -11,4 +11,6 @@
 <script src="assets/js/mail-script.js"></script>
 <script src="assets/js/stellar.js"></script>
 <script src="assets/vendors/lightbox/simpleLightbox.min.js"></script>
+<script src="assets/vendors/isotope/isotope-min.js"></script>
+<script src="assets/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script src="assets/js/custom.js"></script>

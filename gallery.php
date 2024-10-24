@@ -35,80 +35,40 @@
                     <h2 class="title_color">Royal Hotel Gallery</h2>
                     <p>Who are in extremely love with eco friendly system.</p>
                 </div>
+
+                <?php
+                    // Directory containing the gallery images
+                    $target_dir = "admin/assets/images/gallery/";
+
+                    // Scan the directory for files
+                    $images = scandir($target_dir);
+
+                    // Filter out the "." and ".." entries and keep only image files
+                    $allowed_types = ['webp', 'jpg', 'jpeg'];
+                    $image_files = array_filter($images, function($file) use ($target_dir, $allowed_types) {
+                        $file_type = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                        return in_array($file_type, $allowed_types) && is_file($target_dir . $file);
+                    });
+                ?>
+
                 <div class="row imageGallery1" id="gallery">
+
+                    <?php
+                        if (!empty($image_files)){
+                            foreach ($image_files as $image){
+                    ?>
+
                     <div class="col-md-4 gallery_item">
                         <div class="gallery_img">
-                            <img src="assets/image/gallery/01.jpg" alt="">
+                            <img src="<?php echo $target_dir . $image; ?>" alt="<?php echo pathinfo($image, PATHINFO_FILENAME); ?>">
                             <div class="hover">
-                            	<a class="light" href="assets/image/gallery/01.jpg"><i class="fa fa-expand"></i></a>
+                            	<a class="light" href="<?php echo $target_dir . $image; ?>"><i class="fa fa-expand"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/02.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/02.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/03.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/03.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/04.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/04.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/06.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/05.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/05.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/06.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/01-1.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/01-1.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/02-1.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/02-1.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 gallery_item">
-                        <div class="gallery_img">
-                            <img src="assets/image/gallery/03-1.jpg" alt="">
-                            <div class="hover">
-                            	<a class="light" href="assets/image/gallery/03-1.jpg"><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div>
-                    </div>
+
+                    <?php } } ?>
+
                 </div>
             </div>
         </section>
@@ -118,7 +78,7 @@
         <?php include_once ("includes/footer.php") ?>
         
         <?php include_once ("includes/js-links-inc.php") ?>
-        <script src="assets/vendors/lightbox/simpleLightbox.min.js"></script>
+        <!-- <script src="assets/vendors/lightbox/simpleLightbox.min.js"></script> -->
         
     </body>
 </html>
