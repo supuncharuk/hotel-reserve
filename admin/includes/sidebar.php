@@ -330,6 +330,11 @@
                         <a class="nav-link" href="create-uaccount.php"><i class="fa fa-user-plus" aria-hidden="true"></i>Create User Account</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="manage-gallery.php"><i class="far fa-images"></i>Manage Gallery</a>
+                        <!-- <a class="nav-link" href="manage-gallery.php"><i class="fas fa-images"></i>Manage Gallery</a> -->
+                    </li>
+
                 </ul>
             </div>
 
