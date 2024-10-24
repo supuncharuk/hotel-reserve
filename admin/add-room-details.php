@@ -73,18 +73,18 @@
                         echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
                     }else{
                         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-                        $image_path = $target_file;
+                        $image_name = basename($_FILES["image"]["name"]);
                     }
 
                 }else{
                     // For editing, retain the previous image if no new one is uploaded
-                    $image_path = $is_edit ? $path_img : '';
+                    $image_name = $is_edit ? $path_img : '';
                 }
 
                 // Insert or update logic based on whether it's an add or edit operation
                 if ($is_edit){
                     // Update room details
-                    $update_query = "UPDATE rooms SET room_name='$room_name', room_image_path='$image_path', room_type='$room_type', no_persons=$no_persons, ac_availability='$ac_availablity', room_price=$room_price WHERE room_number=$room_number";
+                    $update_query = "UPDATE rooms SET room_name='$room_name', room_image_name='$image_name', room_type='$room_type', no_persons=$no_persons, ac_availability='$ac_availablity', room_price=$room_price WHERE room_number=$room_number";
                     if (mysqli_query($conn, $update_query)) {
                         echo "<script>alert('Room updated successfully'); window.location='room-details.php';</script>";
                     } else {
@@ -92,7 +92,7 @@
                     }
                 }else{
                     // Insert new room details
-                    $insert_query = "INSERT INTO rooms(room_number, room_name, room_image_path, room_type, no_persons, ac_availability, room_price) VALUES ($room_number, '$room_name', '$image_path', '$room_type', $no_persons, '$ac_availablity', $room_price)";
+                    $insert_query = "INSERT INTO rooms(room_number, room_name, room_image_name, room_type, no_persons, ac_availability, room_price) VALUES ($room_number, '$room_name', '$image_name', '$room_type', $no_persons, '$ac_availablity', $room_price)";
                     if (mysqli_query($conn, $insert_query)) {
                         echo "<script>alert('Room added successfully'); window.location='room-details.php';</script>";
                     } else {
@@ -160,7 +160,7 @@
                         <div class="card-body">
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="needs-validation" id="form" method="post" enctype="multipart/form-data" novalidate>
                                 <input type="hidden" name="id" value="<?php echo $is_edit ? $room[0] : 0 ; ?>">
-                                <input type="hidden" name="image_path" value="<?php echo $is_edit ? $room[2] : '' ; ?>">
+                                <input type="text" name="image_path" value="<?php echo $is_edit ? $room[2] : '' ; ?>">
                                 <div class="form-group row">
                                     <label for="roomNumber" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Number</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
@@ -216,12 +216,27 @@
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
                                         <?php if ($is_edit && $room[2]){ ?>
                                             <input type="file" accept="image/*" class="form-control" id="roomPicture" name="image" placeholder="">
-                                            <img src="<?php echo $room[2]; ?>" alt="Room Image" style="width:50px; height:50px;">
+                                            <img src="assets/images/rooms/<?php echo $room[2]; ?>" alt="Room Image" style="width:50px; height:50px; cursor:pointer;" data-toggle="modal" data-target="#imageModal<?php echo $room[0]; ?>">
                                         <?php } else { ?>
                                             <input type="file" accept="image/*" class="form-control" id="roomPicture" name="image" placeholder="" required>
                                         <?php } ?>
                                         <div class="invalid-feedback">
                                             Upload Room Picture
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal for view room image -->
+                                <div class="modal fade pr-0" id="imageModal<?php echo $room[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><?php echo $room[1] ?></h5>
+                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="assets/images/rooms/<?php echo $room[2] ?>" style="width:100%;">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

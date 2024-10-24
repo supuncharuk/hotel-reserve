@@ -114,7 +114,7 @@
                                                 <td><?php echo $row[5] ?></td>
                                                 <td><?php echo $row[4] ?></td>
                                                 <td>
-                                                    <img src="<?php echo $row[2] ?>" style="width:50px; height:50px; cursor:pointer;" data-toggle="modal" data-target="#imageModal<?php echo $row[0]; ?>">
+                                                    <img src="assets/images/rooms/<?php echo $row[2] ?>" style="width:50px; height:50px; cursor:pointer;" data-toggle="modal" data-target="#imageModal<?php echo $row[0]; ?>">
                                                 </td>
                                                 <td><?php echo $row[6] ?></td>
                                                 <td>
@@ -137,7 +137,7 @@
                                                             <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <img src="<?php echo $row[2] ?>" style="width:100%;">
+                                                            <img src="assets/images/rooms/<?php echo $row[2] ?>" style="width:100%;">
                                                         </div>
                                                     </div>
                                                 </div>
