@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 24, 2024 at 11:19 PM
+-- Generation Time: Oct 25, 2024 at 06:05 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -72,6 +72,31 @@ INSERT INTO `rooms` (`room_number`, `room_name`, `room_image_name`, `room_type`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `testimonials`
+--
+
+DROP TABLE IF EXISTS `testimonials`;
+CREATE TABLE IF NOT EXISTS `testimonials` (
+  `testimonial_id` int NOT NULL AUTO_INCREMENT,
+  `client_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `client_image_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `testimonial_description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `star_rating` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`testimonial_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `testimonials`
+--
+
+INSERT INTO `testimonials` (`testimonial_id`, `client_name`, `client_image_name`, `testimonial_description`, `star_rating`) VALUES
+(1, 'TEST', 'testtimonial-1.jpg', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 4),
+(2, 'Adam', 'testtimonial-2.jpg', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 5),
+(3, 'Obama', 'c2.jpg', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -89,7 +114,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`uname`, `uemail`, `upassword`, `ustatus`) VALUES
-('wert', 'test@sample.com', '$2y$10$Epy3BeV9c6e5DGe9pnWPueOcP.GFpDnyoK7YRfhN/05uPuhsTlaLq', '1');
+('wert', 'test@sample.com', '$2y$10$Epy3BeV9c6e5DGe9pnWPueOcP.GFpDnyoK7YRfhN/05uPuhsTlaLq', '1'),
+('hggj', 'gjg@Qdf', '$2y$10$Pyn.gxG2nrBRxHBCiLlfkOm9/oJuxnOAdDhkb.2mJnxWz.KajDjaC', '1');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
