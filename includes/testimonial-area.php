@@ -5,64 +5,51 @@
             <h2 class="title_color">Testimonial from our Clients</h2>
             <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
         </div>
-        <div class="testimonial_slider owl-carousel">
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="assets/image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
+
+        <?php
+            require_once ("./admin/includes/config.php");
+
+            $sql = "SELECT * FROM testimonials";
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result)>0){
+        ?>
+                <div class="testimonial_slider owl-carousel">
+
+                    <?php
+                        while ($record = mysqli_fetch_row($result)){
+                    ?>
+
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="admin/assets/images/testimonials/clients/<?php echo $record[2] ?>" alt="">
+                        <div class="media-body">
+                            <p><?php echo $record[3] ?></p>
+                            <h4 class="sec_h4"><?php echo $record[1] ?></h4>
+                            <div class="star">
+                                <?php
+                                    $star = $record[4];
+                                    $all = 5;
+                                    $none = $all - $star;
+
+                                    for ($i=1; $i<=$star; $i++){
+                                        echo "<i class='fas fa-star' style='color:#FFD43B;'></i>";
+                                    }
+
+                                    if ($none>0){
+                                        for ($j=1; $j<=$none; $j++){
+                                            echo "<i class='far fa-star' style='color:#FFD43B;'></i>";
+                                        }
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <?php } ?>
+
                 </div>
-            </div>    
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="assets/image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="assets/image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>    
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="assets/image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php } ?>
+        
     </div>
 </section>
 <!--================ Testimonial Area  =================-->
