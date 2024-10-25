@@ -14,3 +14,4 @@
 <script src="assets/vendors/isotope/isotope-min.js"></script>
 <script src="assets/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script src="assets/js/custom.js"></script>
+<script src="assets/js/testimonial.js"></script>

@@ -32,12 +32,12 @@
                                     $none = $all - $star;
 
                                     for ($i=1; $i<=$star; $i++){
-                                        echo "<i class='fas fa-star' style='color:#FFD43B;'></i>";
+                                        echo "<i class='fas fa-star' style='color:#FFD43B; font-size:18px;'></i>";
                                     }
 
                                     if ($none>0){
                                         for ($j=1; $j<=$none; $j++){
-                                            echo "<i class='far fa-star' style='color:#FFD43B;'></i>";
+                                            echo "<i class='far fa-star' style='color:#FFD43B; font-size:18px;'></i>";
                                         }
                                     }
                                 ?>
