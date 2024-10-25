@@ -208,7 +208,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Apps <span class="badge badge-secondary">New</span></a>
                         <div id="submenu-7" class="collapse submenu" style="">
                             <ul class="nav flex-column">
@@ -226,7 +226,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8"><i class="fas fa-fw fa-columns"></i>Icons</a>
@@ -254,7 +254,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Maps</a>
                         <div id="submenu-9" class="collapse submenu" style="">
                             <ul class="nav flex-column">
@@ -266,7 +266,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
 
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10"><i class="fas fa-f fa-folder"></i>Menu Level</a>
@@ -333,6 +333,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="manage-gallery.php"><i class="far fa-images"></i>Manage Gallery</a>
                         <!-- <a class="nav-link" href="manage-gallery.php"><i class="fas fa-images"></i>Manage Gallery</a> -->
+                    </li>
+
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href=""><i class="fas fa-quote-right"></i>Testimonials</a>
+                    </li> -->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#testimonials" aria-controls="submenu-10"><i class="fas fa-quote-right"></i>Testimonials</a>
+                        <div id="testimonials" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Testimonial Details</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="add-new-testimonial.php">Add New Testimonial</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                 </ul>
