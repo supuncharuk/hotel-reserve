@@ -196,9 +196,10 @@
                                     <label for="starRating" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Star Rating</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
                                         <select class="form-control" id="starRating" name="star_rating" required>
-                                            <option value="" <?php echo empty($testimonial[4]) ? 'selected' : ''; ?> disabled>Select Rating</option>
+                                            <?php $star = ($testimonial[4]) ? $testimonial[4] : '' ?>
+                                            <option value="" <?php echo empty($star) ? 'selected' : ''; ?> disabled>Select Rating</option>
                                             <?php for ($i=1; $i<=5; $i++){ ?>
-                                                <option value='<?php echo $i ?>' <?php echo ($testimonial[4] == $i) ? 'selected' : ''; ?>><?php echo $i ?> Star</option>
+                                                <option value='<?php echo $i ?>' <?php echo ($star == $i) ? 'selected' : ''; ?>><?php echo $i ?> Star</option>
                                             <?php } ?>
                                         </select>
                                         <div class="invalid-feedback">
