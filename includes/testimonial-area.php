@@ -21,7 +21,7 @@
                     ?>
 
                     <div class="media testimonial_item">
-                        <img class="rounded-circle" src="admin/assets/images/testimonials/clients/<?php echo $record[2] ?>" alt="">
+                        <img class="rounded-circle" src="admin/assets/images/testimonials/clients/<?php echo $record[2] ?>" alt="" width="80" height="80">
                         <div class="media-body">
                             <p><?php echo $record[3] ?></p>
                             <h4 class="sec_h4"><?php echo $record[1] ?></h4>
