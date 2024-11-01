@@ -1,3 +1,7 @@
+<?php
+  require_once ("admin/includes/config.php");
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -32,6 +36,32 @@
         </style>
     </head>
     <body style="background-color:#2466dee3;">
+
+        <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["submit"])){
+                $rnumber = trim(htmlspecialchars($_REQUEST["room_number"]));
+                $cname = trim(htmlspecialchars($_REQUEST["customer_name"]));
+                $ceamil = trim(htmlspecialchars($_REQUEST["customer_email"]));
+                $cmobile = trim(htmlspecialchars($_REQUEST["customer_mobile"]));
+                $checking_date = trim(htmlspecialchars($_REQUEST["checking_date"]));
+                $checkout_date = trim(htmlspecialchars($_REQUEST["checkout_date"]));
+    
+                if (!empty($rnumber) && !empty($cname) && !empty($ceamil) && !empty($cmobile) && !empty($checking_date) && !empty($checkout_date)){
+                    $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND (checking_date<='$checking_date' AND checkout_date>='$checkout_date')";                           
+                    $result = mysqli_query($conn,$sql);
+    
+                    if (mysqli_num_rows($result) > 0){
+                        echo "<script>alert('This room is not availabe')</script>";
+                    }else{
+                        $sql2 = "INSERT INTO bookings(room_number,customer_name,customer_email,customer_mobile,checking_date,checkout_date,paid) VALUES($rnumber,'$cname','$ceamil','$cmobile','$checking_date','$checkout_date',0)";
+                        $result2 = mysqli_query($conn,$sql2);
+                        echo "<script>alert('Booked successfully')</script>";
+                    }
+                }else{
+                    echo "<script>alert('All fields required')</script>";
+                }
+            } 
+        ?>
                
         <!--================Contact Area =================-->
         <section class="h-100">
@@ -44,16 +74,16 @@
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
 
                                 <div class="form-group row mb-3">
-                                    <label for="roomName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Number</label>
+                                    <label for="roomNumber" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Number</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="roomName" name="room_name" value="1" readonly required>
+                                        <input type="text" class="form-control" id="roomNumber" name="room_number" value="1" readonly required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-3">
-                                    <label for="roomName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Name</label>
+                                    <label for="customerName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Name</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="roomName" name="room_name" required>
+                                        <input type="text" class="form-control" id="rreservemName" name="customer_name" required>
                                         <div class="invalid-feedback">
                                             Enter your name
                                         </div>
@@ -61,9 +91,9 @@
                                 </div>
 
                                 <div class="form-group row mb-3">
-                                    <label for="roomName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Email</label>
+                                    <label for="customerEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Email</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="email" class="form-control" id="roomName" name="room_name" required>
+                                        <input type="email" class="form-control" id="reserveEmail" name="customer_email" required>
                                         <div class="invalid-feedback">
                                             Enter your email
                                         </div>
@@ -71,9 +101,9 @@
                                 </div>
 
                                 <div class="form-group row mb-3">
-                                    <label for="roomName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Mobile Number</label>
+                                    <label for="customerMobile" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Mobile Number</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="tel" class="form-control" id="roomName" name="room_name" required>
+                                        <input type="tel" class="form-control" id="reserveMobile" name="customer_mobile" required>
                                         <div class="invalid-feedback">
                                             Enter your mobile number
                                         </div>
@@ -81,9 +111,9 @@
                                 </div>
 
                                 <div class="form-group row mb-3">
-                                    <label for="roomName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Checking Date</label>
+                                    <label for="CheckingDate" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Checking Date</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control" id="roomName" name="room_name" required>
+                                        <input type="date" class="form-control" id="CheckingDate" name="checking_date" required>
                                         <div class="invalid-feedback">
                                             Select your checking date
                                         </div>
@@ -91,9 +121,9 @@
                                 </div>
 
                                 <div class="form-group row mb-3">
-                                    <label for="roomName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Checkout Date</label>
+                                    <label for="CheckoutDate" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Checkout Date</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control" id="roomName" name="room_name" required>
+                                        <input type="date" class="form-control" id="CheckoutDate" name="checkout_date" required>
                                         <div class="invalid-feedback">
                                             Select your checkout date
                                         </div>
@@ -105,7 +135,7 @@
                                     <button type="submit" value="submit" class="btn theme_btn button_hover">Send Message</button>
                                 </div> -->
                                 <div class="form-group pt-2 text-center">
-                                    <input type="submit" class="btn btn-block btn-primary" name="submit">
+                                    <input type="submit" class="btn btn-block btn-primary" name="submit" value="Book">
                                 </div>
 
                             </form>
