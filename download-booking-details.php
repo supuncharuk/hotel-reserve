@@ -3,9 +3,11 @@
 
     require_once ("admin/includes/config.php");
 
-    $booking_id = 1;
+    if (isset($_REQUEST['booking_id'])){
+        $booking_id = $_POST["booking_id"];
+    }
 
-    $sql = "SELECT * FROM bookings WHERE booking_id=1";
+    $sql = "SELECT * FROM bookings WHERE booking_id = '$booking_id'";
     $result = mysqli_query($conn, $sql);
     $record = mysqli_fetch_assoc($result);
 
@@ -41,7 +43,7 @@
     <p><strong>Check-In Date:</strong> $check_in</p>
     <p><strong>Check-In Time:</strong>2:00 P.M.</p>
     <p><strong>Check-Out Date:</strong> $check_out</p>
-    <p><strong>Check-Out Time:</strong>12.00 P.M.</p>
+    <p><strong>Check-Out Time:</strong> 12.00 P.M.</p>
     ";
 
     // Write content to the PDF
