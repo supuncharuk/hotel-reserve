@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 25, 2024 at 06:05 PM
+-- Generation Time: Nov 04, 2024 at 11:44 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -30,16 +30,30 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `bookings`;
 CREATE TABLE IF NOT EXISTS `bookings` (
   `booking_id` int NOT NULL AUTO_INCREMENT,
-  `room_number` int DEFAULT NULL,
-  `customer_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_mobile` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `checking_date` date DEFAULT NULL,
-  `checkout_date` date DEFAULT NULL,
-  `paid` tinyint(1) DEFAULT NULL,
+  `room_number` int NOT NULL,
+  `customer_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `checking_date` date NOT NULL,
+  `checkout_date` date NOT NULL,
+  `paid` tinyint(1) NOT NULL,
+  `discount` int DEFAULT NULL,
+  `vat` int DEFAULT NULL,
+  `total_payment` int DEFAULT NULL,
+  `booking_ref` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`booking_id`),
   KEY `room_number` (`room_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`booking_id`, `room_number`, `customer_name`, `customer_email`, `customer_mobile`, `checking_date`, `checkout_date`, `paid`, `discount`, `vat`, `total_payment`, `booking_ref`) VALUES
+(1, 1, 'test', 'test@smaple.com', '0124563978', '2024-11-01', '2024-11-03', 0, NULL, NULL, NULL, ''),
+(22, 1, 'test', 'sample@gmail.com', '0715631245', '2024-11-23', '2024-11-24', 1, 0, 1800, 12050, 'booking_67294e4c97ff66.12364944'),
+(21, 1, 'test', 'sample@gmail.com', '0715631245', '2024-11-21', '2024-11-22', 0, NULL, NULL, NULL, 'booking_67294b4bebc5a1.48923254'),
+(20, 1, 'Adam', 'adam@gmail.com', '0715631693', '2024-11-03', '2024-11-04', 0, NULL, NULL, NULL, 'booking_67290ce5726d43.39911385');
 
 -- --------------------------------------------------------
 
@@ -56,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `no_persons` int DEFAULT NULL,
   `ac_availability` varchar(3) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `room_price` int DEFAULT NULL,
+  `room_availability` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`room_number`)
@@ -65,9 +80,9 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`room_number`, `room_name`, `room_image_name`, `room_type`, `no_persons`, `ac_availability`, `room_price`, `created_at`, `updated_at`) VALUES
-(88, 'edfsdfsd hbfvhfdbjhfd', 'room2.jpg', 'dffdsgf', 45, 'no', 435325, '2024-10-24 15:04:30', '2024-10-24 15:15:18'),
-(1, 'Room 1', 'eight.jpg', 'Type 1', 3, 'yes', 10000, '2024-10-06 15:59:48', '2024-10-24 15:20:06');
+INSERT INTO `rooms` (`room_number`, `room_name`, `room_image_name`, `room_type`, `no_persons`, `ac_availability`, `room_price`, `room_availability`, `created_at`, `updated_at`) VALUES
+(88, 'edfsdfsd hbfvhfdbjhfd', 'room2.jpg', 'dffdsgf', 45, 'no', 435325, 0, '2024-10-24 15:04:30', '2024-10-24 15:15:18'),
+(1, 'Room 1', 'eight.jpg', 'Type 1', 3, 'yes', 10000, 0, '2024-10-06 15:59:48', '2024-10-24 15:20:06');
 
 -- --------------------------------------------------------
 
