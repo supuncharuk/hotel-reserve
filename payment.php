@@ -9,9 +9,83 @@
     <title>Checkout</title>
 
     <?php include_once ("includes/css-links-inc.php") ?>
+
+    <style>
+        .input-as-span {
+            border: none;
+            background: transparent;
+            color: inherit; /* Matches the text color */
+            padding: 0;
+            text-align: right; /* Aligns text to the right */
+            width: auto; /* Shrinks input to content size */
+            pointer-events: none; /* Makes the input non-clickable */
+        }
+
+        .input-as-span:focus {
+            outline: none; /* Removes the focus outline */
+        }
+
+        /* Add "Rs." before each input with a consistent right-aligned display */
+        .input-as-span-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .input-as-span-wrapper::before {
+            content: "Rs.";
+            position: absolute;
+            right: 100%;
+            margin-right: -100px; /* Space between "Rs." and the number */
+            color: inherit;
+        }
+    </style>
+
 </head>
 
     <body class="bg-body-tertiary">
+
+    <?php
+    require_once ("admin/includes/config.php");
+
+    if (isset($_REQUEST['booking_id'])){
+        $booking_id = $_POST['booking_id'];
+
+        $sql = "SELECT * FROM bookings WHERE booking_id = $booking_id";
+        $result = mysqli_query($conn, $sql);
+        $record = mysqli_fetch_assoc($result);
+        $room_num = $record['room_number'];
+
+        $sql2 = "SELECT room_price FROM rooms WHERE room_number=$room_num";
+        $result2 = mysqli_query($conn, $sql2);
+        $record2 = mysqli_fetch_assoc($result2);
+
+        $room_price = $record2['room_price'];
+        $vat = $room_price * 18 /100;
+        $ssc_levy = $room_price * 2.5 / 100;
+        $promo = 0;
+        $total = $room_price + $vat + $ssc_levy - $promo;
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["checkout"])){
+        $booking_id = trim(htmlspecialchars($_REQUEST["book_id"]));
+        $vat = trim(htmlspecialchars($_REQUEST["vat"]));
+        $ssc_levy = trim(htmlspecialchars($_REQUEST["ssc_levy"]));
+        $promo = trim(htmlspecialchars($_REQUEST["promo"]));
+        $total = trim(htmlspecialchars($_REQUEST["total"]));
+
+        $sql3 = "UPDATE bookings SET paid='1', discount=$promo, vat=$vat, total_payment=$total WHERE booking_id = $booking_id";
+
+        $result3 = mysqli_query($conn, $sql3);
+
+        if ($result3){
+            echo "<script>alert('Your Payment is successfull')</script>";
+        }else{
+            echo "<script>alert('Something Went Wrong')</script>";
+        }
+    }
+?>
 
         <div class="container py-5">
             <main>
@@ -22,60 +96,73 @@
                     <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
                 </div>
 
-                <div class="row g-5">
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
 
-                    <div class="col-md-5 col-lg-4 order-md-last">
-                        <h4 class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="text-primary">Payment Description</span>
-                            <!-- <span class="badge bg-primary rounded-pill">3</span> -->
-                        </h4>
+                    <input type="hidden" name="book_id" value="<?php echo $booking_id ?>">
 
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">Room Price</h6>
-                                    <!-- <small class="text-body-secondary">Brief description</small> -->
-                                </div>
-                                <span class="text-body-secondary">Rs. 10000</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">Value Added Tax (18%)</h6>
-                                    <!-- <small class="text-body-secondary">Brief description</small> -->
-                                </div>
-                                <span class="text-body-secondary">Rs. 1800</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">SSC Levy</h6>
-                                    <!-- <small class="text-body-secondary">Brief description</small> -->
-                                </div>
-                                <span class="text-body-secondary">Rs. 3100</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-                                <div class="text-success">
-                                    <h6 class="my-0">Promo code</h6>
-                                    <!-- <small>EXAMPLECODE</small> -->
-                                </div>
-                                <span class="text-success">−Rs. 1500</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Total (Rs.)</span>
-                                <strong>Rs. 13400</strong>
-                            </li>
-                        </ul>
+                    <div class="row g-5">
 
-                        <form class="card p-2">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Promo code">
-                                <button type="submit" class="btn btn-secondary">Redeem</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="col-md-5 col-lg-4 order-md-last">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-primary">Payment Description</span>
+                                <!-- <span class="badge bg-primary rounded-pill">3</span> -->
+                            </h4>
 
-                    <div class="col-md-7 col-lg-8">
-                        
-                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">Room Price</h6>
+                                        <!-- <small class="text-body-secondary">Brief description</small> -->
+                                    </div>
+                                    <div class="input-as-span-wrapper text-body-secondary">
+                                        <input type="number" class="input-as-span text-body-secondary" value="<?php echo $room_price ?>" disabled>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">VAT (18%)</h6>
+                                        <!-- <small class="text-body-secondary">Brief description</small> -->
+                                    </div>
+                                    <div class="input-as-span-wrapper text-body-secondary">
+                                        <input type="number" class="input-as-span text-body-secondary" name="vat" value="<?php echo $vat ?>" readonly>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">SSC Levy</h6>
+                                        <!-- <small class="text-body-secondary">Brief description</small> -->
+                                    </div>
+                                    <div class="input-as-span-wrapper text-body-secondary">
+                                        <input type="number" class="input-as-span text-body-secondary" name="ssc_levy" value="<?php echo $ssc_levy ?>" readonly>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+                                    <div class="text-success">
+                                        <h6 class="my-0">Promo code</h6>
+                                        <!-- <small>EXAMPLECODE</small> -->
+                                    </div>
+                                    <div class="input-as-span-wrapper text-body-secondary">
+                                        <input type="number" class="input-as-span text-success" name="promo" value="<?php echo $promo ?>" readonly>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Total (Rs.)</span>
+                                    <div class="input-as-span-wrapper text-body-secondary">
+                                        <input type="number" class="input-as-span" name="total" value="<?php echo $total ?>" readonly>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <form class="card p-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Promo code">
+                                    <button type="submit" class="btn btn-secondary" disabled>Redeem</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-7 col-lg-8">
+                            
                             <h4 class="mb-3">Payment</h4>
 
                             <div class="my-3">
@@ -130,12 +217,13 @@
 
                             <hr class="my-4">
 
-                            <input type="submit" class="w-100 btn btn-primary" name="submit" value="Continue to checkout">
-                        </form>
+                            <input type="submit" class="w-100 btn btn-primary" name="checkout" value="Continue to checkout">
+
+                        </div>
 
                     </div>
 
-                </div>
+                </form>
             </main>
         </div>
 
