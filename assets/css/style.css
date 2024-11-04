@@ -3589,3 +3589,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*---------------------------------------------------- */
+
+
+/*--------------------------------------------------------------
+# Toast Alert Custom CSS
+--------------------------------------------------------------*/
+.toast-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Adjust the opacity as needed */
+  backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+  z-index: 1050; /* Ensure it's above other elements */
+  display: none; /* Initially hidden */
+}
