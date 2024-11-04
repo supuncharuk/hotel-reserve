@@ -66,7 +66,7 @@
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <form action="pay_now.php" method="POST">
+                                    <form action="payment.php" method="POST">
                                         <input type="hidden" name="booking_id" value="<?php echo $booking_id; ?>">
                                         <input type="submit" class="btn btn-primary w-100" value="Pay Now"></button>
                                     </form>
