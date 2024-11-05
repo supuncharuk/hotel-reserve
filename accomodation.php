@@ -46,18 +46,18 @@
                         $result = mysqli_query($conn,$sql);
 
                         if (mysqli_num_rows($result)>0){
-                            while ($row = mysqli_fetch_row($result)){
-                                $ac_available = ($row[5] == "yes") ? "A/C" : "Non A/C";
+                            while ($row = mysqli_fetch_assoc($result)){
+                                $ac_available = ($row['ac_availability'] == "yes") ? "A/C" : "Non A/C";
 
                                 echo "<div class='col-lg-3 col-sm-6'>
                                     <div class='accomodation_item text-center'>
                                         <div class='hotel_img'>
-                                            <img src='admin/assets/images/rooms/$row[2]' alt=''>
-                                            <a href='#' class='btn theme_btn button_hover'>Book Now</a>
+                                            <img src='admin/assets/images/rooms/" .$row['room_image_name']. "' alt=''>
+                                            <a href='booking-details.php?room_id=".$row['room_number']."' class='btn theme_btn button_hover'>Book Now</a>
                                         </div>
-                                        <a href='#'><h4 class='sec_h4'>$row[1]</h4></a>
-                                        <h5>Rs. $row[6]<small>/night</small></h5>
-                                        <h6>$ac_available, $row[4] Persons</h5>
+                                        <a href='#'><h4 class='sec_h4'>".$row['room_name']."</h4></a>
+                                        <h5>Rs. ".$row['room_price']."<small>/night</small></h5>
+                                        <h6>$ac_available, ".$row['no_persons']." Persons</h5>
                                     </div>
                                 </div>";
                             }

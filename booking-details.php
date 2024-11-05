@@ -61,17 +61,23 @@
                         <div class="card-body" style="padding:25px 20px;"> 
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
 
+                                <?php
+                                    if (isset($_REQUEST["room_id"])){
+                                        $rid = $_GET["room_id"];
+                                    }
+                                ?>
+
                                 <div class="form-group row mb-3">
                                     <label for="roomNumber" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Number</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="roomNumber" name="room_number" value="1" readonly required>
+                                        <input type="text" class="form-control" id="roomNumber" name="room_number" value="<?php echo isset($rid) ? $rid : '' ?>" readonly required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-3">
                                     <label for="customerName" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Name</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="rreservemName" name="customer_name" value="test" required>
+                                        <input type="text" class="form-control" id="rreservemName" name="customer_name" required>
                                         <div class="invalid-feedback">
                                             Enter your name
                                         </div>
@@ -81,7 +87,7 @@
                                 <div class="form-group row mb-3">
                                     <label for="customerEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Email</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="email" class="form-control" id="reserveEmail" name="customer_email" value="sample@gmail.com" required>
+                                        <input type="email" class="form-control" id="reserveEmail" name="customer_email" required>
                                         <div class="invalid-feedback">
                                             Enter your email
                                         </div>
@@ -91,7 +97,7 @@
                                 <div class="form-group row mb-3">
                                     <label for="customerMobile" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Mobile Number</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="tel" class="form-control" id="reserveMobile" name="customer_mobile" value="0715631245" required>
+                                        <input type="tel" class="form-control" id="reserveMobile" name="customer_mobile" required>
                                         <div class="invalid-feedback">
                                             Enter your mobile number
                                         </div>
@@ -101,7 +107,7 @@
                                 <div class="form-group row mb-3">
                                     <label for="CheckingDate" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Checking Date</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control" id="CheckingDate" name="checking_date" value="2024-11-01" required>
+                                        <input type="date" class="form-control" id="CheckingDate" name="checking_date" required>
                                         <div class="invalid-feedback">
                                             Select your checking date
                                         </div>
@@ -111,7 +117,7 @@
                                 <div class="form-group row mb-3">
                                     <label for="CheckoutDate" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Checkout Date</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control" id="CheckoutDate" name="checkout_date" value="2024-11-03" required>
+                                        <input type="date" class="form-control" id="CheckoutDate" name="checkout_date" required>
                                         <div class="invalid-feedback">
                                             Select your checkout date
                                         </div>
@@ -171,13 +177,14 @@
                 $booking_ref = uniqid('booking_', true);
     
                 if (!empty($rnumber) && !empty($cname) && !empty($ceamil) && !empty($cmobile) && !empty($checking_date) && !empty($checkout_date)){
-                    $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND (checking_date<='$checking_date' AND checkout_date>='$checkout_date')";                           
+                    // $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND ((checking_date < $checking_date AND checkout_date > $checking_date) OR (checking_date > $checking_date AND checkout_date > $checkout_date) OR (checking_date > $checking_date AND checkout_date < $checkout_date))";                           
+                    $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND (checking_date < $checkout_date AND checkout_date > $checking_date)";                           
                     $result = mysqli_query($conn,$sql);
     
                     if (mysqli_num_rows($result) > 0){
                         $alert_type = "error";
-                        $alert_message = "This room is not availabel";
-                        $redirect_url = "";  // No redirect for errors
+                        $alert_message = "This room is not available";
+                        $redirect_url = "accomodation.php";
                         // echo "<script>alert('This room is not availabe')</script>";
                     }else{
                         $sql2 = "INSERT INTO bookings(room_number,customer_name,customer_email,customer_mobile,checking_date,checkout_date,paid,booking_ref) VALUES($rnumber,'$cname','$ceamil','$cmobile','$checking_date','$checkout_date',0,'$booking_ref')";

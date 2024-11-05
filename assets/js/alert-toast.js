@@ -8,7 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
         show_alert(alertType, alertMessage);
 
         // Check if redirect URL exists for success alerts
-        if (alertType === "success" && redirectUrl) {
+        // if (alertType === "success" && redirectUrl) {
+        //     setTimeout(function() {
+        //         window.location.href = redirectUrl;
+        //     }, 3000); // Redirect after 3 seconds
+        // }
+
+        if (redirectUrl != "") {
             setTimeout(function() {
                 window.location.href = redirectUrl;
             }, 3000); // Redirect after 3 seconds
