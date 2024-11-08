@@ -18,7 +18,7 @@
                 if (password_verify($password, $hashed_password)) {
                     session_start();
                     $_SESSION['uname'] = $uname;
-                    header("Location: admin-dashboard.php");
+                    header("Location: admin-home-page.php");
                     exit();
                 } else {
                     $alert_type = "error";

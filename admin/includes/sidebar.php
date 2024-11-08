@@ -20,7 +20,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="admin-dashboard.php"><i class="fas fa-home"></i>Home</a>
+                        <a class="nav-link" href="admin-home-page.php"><i class="fas fa-home"></i>Home</a>
                     </li>
 
                     <li class="nav-item">

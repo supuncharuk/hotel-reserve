@@ -79,8 +79,8 @@
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Bookings</a></li>
+                                        <li class="breadcrumb-item"><a href="admin-home-page" class="breadcrumb-link">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="available-rooms.php" class="breadcrumb-link">Available Rooms</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">New Booking</li>
                                     </ol>
                                 </nav>

@@ -1,11 +1,20 @@
 <?php
     session_start();
+    require_once ("includes/config.php");
 
-    if (!isset($_SESSION['uname'])){
+    if (isset($_SESSION['uname'])){
+        $uname = $_SESSION['uname'];
+
+        $sql = "SELECT * FROM users WHERE uname='$uname'";
+        $result = mysqli_query($conn, $sql);
+        $record = mysqli_fetch_assoc($result);
+
+        if ($record['is_admin'] != 'yes'){
+           header("location: index.php");
+        }
+    }else{
         header("location: index.php");
     }
-
-    require_once ("includes/config.php");
 ?>
 
 <!doctype html>
@@ -108,24 +117,9 @@
                 <div class="form-group pt-2">
                     <input type="submit" class="btn btn-block btn-primary" name="submit" value="Create Account">
                 </div>
-                <!-- <div class="form-group">
-                    <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">By creating an account, you agree the <a href="#">terms and conditions</a></span>
-                    </label>
-                </div>
-                <div class="form-group row pt-0">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
-                        <button class="btn btn-block btn-social btn-facebook " type="button">Facebook</button>
-                    </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <button class="btn  btn-block btn-social btn-twitter" type="button">Twitter</button>
-                    </div>
-                </div> -->
-            </div>
 
-            <!-- <div class="card-footer bg-white">
-                <p>Already member? <a href="index.php" class="text-secondary">Login Here.</a></p>
-            </div> -->
+                <a href="admin-home-page.php"><i class="fas fa-arrow-left"></i> &nbsp; Go to admin home page</a>
+            </div>
         </div>
     </form>
 

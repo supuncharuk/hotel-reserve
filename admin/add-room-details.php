@@ -147,7 +147,7 @@
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="admin-home-page.php" class="breadcrumb-link">Home</a></li>
                                             <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Rooms</a></li>
                                             <li class="breadcrumb-item active" aria-current="page">Add Room Details</li>
                                         </ol>
@@ -163,7 +163,7 @@
 
                 <div class="">
                     <div class="card">
-                        <h5 class="card-header">Horizontal Form</h5>
+                        <h5 class="card-header">Room Details</h5>
                         <div class="card-body">
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="needs-validation" id="form" method="post" enctype="multipart/form-data" novalidate>
                                 <input type="hidden" name="id" value="<?php echo $is_edit ? $room[0] : 0 ; ?>">
