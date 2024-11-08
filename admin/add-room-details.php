@@ -1,4 +1,10 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['uname'])){
+        header("location: index.php");
+    }
+
     require_once ("includes/config.php");
 
     $is_edit = false;  // Flag to determine if it's an edit operation
