@@ -48,16 +48,15 @@
         <div class="toast-container top-50 start-50 translate-middle p-3">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                
                 <strong class="me-auto">Alert</strong>
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
                 </div>
                 <div class="toast-body" id="alert_msg">
-                <!--Message Here-->
+                    <!--Message Here-->
                 </div>
             </div>
-            </div>
-            <div id="toastBackdrop" class="toast-backdrop"></div>
+        </div>
+        <div id="toastBackdrop" class="toast-backdrop"></div>
                
         <section class="main-content">
             <div class="spl-container">
