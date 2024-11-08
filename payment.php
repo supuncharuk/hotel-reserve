@@ -1,13 +1,26 @@
 <?php
     require_once ("admin/includes/config.php");
 
-    if (isset($_REQUEST['booking_id'])){
-        $booking_id = $_POST['booking_id'];
+    if (isset($_REQUEST['booking_id']) || isset($_REQUEST['booking_ref'])){
+        if (isset($_REQUEST['booking_id'])){
+            $booking_id = $_POST['booking_id'];
 
-        $sql = "SELECT * FROM bookings WHERE booking_id = $booking_id";
-        $result = mysqli_query($conn, $sql);
-        $record = mysqli_fetch_assoc($result);
-        $room_num = $record['room_number'];
+            $sql = "SELECT * FROM bookings WHERE booking_id = $booking_id";
+            $result = mysqli_query($conn, $sql);
+            $record = mysqli_fetch_assoc($result);
+            $room_num = $record['room_number'];
+
+        }else if (isset($_REQUEST['booking_ref'])){
+            $booking_ref = $_GET['booking_ref'];
+
+            $sql = "SELECT * FROM bookings WHERE booking_ref = '$booking_ref'";
+            $result = mysqli_query($conn, $sql);
+            $record = mysqli_fetch_assoc($result);
+            $room_num = $record['room_number'];
+            $booking_id = $record['booking_id'];
+            $from_admin = "admin/available-rooms.php";
+        }
+        
 
         // $checkin_date = new DateTime($record['checking_date']);
         // $checkout_date = new DateTime($record['checkout_date']);
@@ -204,6 +217,8 @@
                                 </div>
                             </div>
 
+                            <input type="hidden" name="from_admin" value="<?php echo isset($from_admin) ? $from_admin : '' ?>">
+
                             <hr class="my-4">
 
                             <input type="submit" class="w-100 btn btn-primary" name="pay" value="Continue to Pay">
@@ -229,6 +244,7 @@
                 $ssc_levy = trim(htmlspecialchars($_REQUEST["ssc_levy"]));
                 $promo = trim(htmlspecialchars($_REQUEST["promo"]));
                 $total = trim(htmlspecialchars($_REQUEST["total"]));
+                $redirect_admin = trim(htmlspecialchars($_REQUEST["from_admin"]));
     
                 $sql3 = "UPDATE bookings SET paid='1', vat=$vat, ssc_levy=$ssc_levy, discount=$promo, total_payment=$total WHERE booking_id = $booking_id";
     
@@ -238,7 +254,12 @@
                     // echo "<script>alert('Your Payment is successfull')</script>";
                     $alert_type = "success";
                     $alert_message = "Your Payment is successfull";
-                    $redirect_url = "accomodation.php";
+
+                    if (!empty($redirect_admin)){
+                        $redirect_url = $redirect_admin;
+                    }else{
+                        $redirect_url = "accomodation.php";
+                    }
                 }else{
                     // echo "<script>alert('Something Went Wrong')</script>";
                     $alert_type = "error";

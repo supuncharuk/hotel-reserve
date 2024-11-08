@@ -1,5 +1,11 @@
 <?php
     require_once ("includes/config.php");
+
+    if (isset($_REQUEST['rid'])){
+        $rid = $_GET['rid'];
+        $cindate = $_GET['cindate'];
+        $coutdate =  $_GET['coutdate'];
+    }
 ?>
 
 <!doctype html>
@@ -15,80 +21,24 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/libs/css/toast.css">
 </head>
 
 <body>
-    <?php
+
+    <div class="toast-container top-50 start-50 translate-middle p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <strong class="me-auto">Alert</strong>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+            </div>
+            <div class="toast-body" id="alert_msg">
+                <!--Message Here-->
+            </div>
+        </div>
+    </div>
+    <div id="toastBackdrop" class="toast-backdrop"></div>
     
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["submit"])){
-            $room_number = trim(htmlspecialchars($_REQUEST["room_number"]));
-            $room_name = trim(htmlspecialchars($_REQUEST["room_name"]));
-            $room_type = trim(htmlspecialchars($_REQUEST["room_type"]));
-            $no_persons = trim(htmlspecialchars($_REQUEST["no_of_persons"]));
-            $room_price = trim(htmlspecialchars($_REQUEST["room_price"]));
-            $ac_availablity = trim(htmlspecialchars($_REQUEST["inlineRadioOptions"]));
-            $id = trim(htmlspecialchars($_REQUEST["id"]));
-            $path_img = trim(htmlspecialchars($_REQUEST["image_path"]));
-           
-            if (!empty($room_number) && !empty($room_name) && !empty($room_type) && !empty($no_persons) && !empty($room_price) && !empty($ac_availablity)){
-                
-                if ($id != 0) {
-                    $is_edit = true;
-                }
-
-                // Check if the room number already exists when adding a new room
-                if (!$is_edit) {
-                    $check_room_query = "SELECT * FROM rooms WHERE room_number = $room_number";
-                    $check_result = mysqli_query($conn, $check_room_query);
-                    
-                    if (mysqli_num_rows($check_result) > 0) {
-                        echo "<script>alert('Room number already exists. Please choose a different room number.');</script>";
-                        exit;  // Stop further execution
-                    }
-                }
-                
-                if (!empty($_FILES["image"]["name"])){
-                    $target_dir = "assets/images/rooms/";
-                    $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-                    if ($imageFileType != "webp" && $imageFileType != "jpg" && $imageFileType != "jpeg") {
-                        echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
-                    }else{
-                        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-                        $image_name = basename($_FILES["image"]["name"]);
-                    }
-
-                }else{
-                    // For editing, retain the previous image if no new one is uploaded
-                    $image_name = $is_edit ? $path_img : '';
-                }
-
-                // Insert or update logic based on whether it's an add or edit operation
-                if ($is_edit){
-                    // Update room details
-                    $update_query = "UPDATE rooms SET room_name='$room_name', room_image_name='$image_name', room_type='$room_type', no_persons=$no_persons, ac_availability='$ac_availablity', room_price=$room_price WHERE room_number=$room_number";
-                    if (mysqli_query($conn, $update_query)) {
-                        echo "<script>alert('Room updated successfully'); window.location='room-details.php';</script>";
-                    } else {
-                        echo "<script>alert('Error updating room');</script>";
-                    }
-                }else{
-                    // Insert new room details
-                    $insert_query = "INSERT INTO rooms(room_number, room_name, room_image_name, room_type, no_persons, ac_availability, room_price) VALUES ($room_number, '$room_name', '$image_name', '$room_type', $no_persons, '$ac_availablity', $room_price)";
-                    if (mysqli_query($conn, $insert_query)) {
-                        echo "<script>alert('Room added successfully'); window.location='room-details.php';</script>";
-                    } else {
-                        echo "<script>alert('Error adding room');</script>";
-                    }
-                }
-                
-            }          
-        }
-    ?>
-
-
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -146,7 +96,7 @@
                                 <div class="form-group row">
                                     <label for="roomNumber" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Number</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="number" class="form-control" id="roomNumber" name="room_number"  placeholder="" required>
+                                        <input type="number" class="form-control" id="roomNumber" name="room_number" value="<?php echo isset($rid) ? $rid : '' ?>" readonly  required>
                                         <div class="invalid-feedback">
                                             Enter Room Number
                                         </div>
@@ -154,67 +104,65 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="roomName" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Name</label>
+                                    <label for="customerName" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Customer Name</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="roomName" name="room_name" placeholder="" required>
+                                        <input type="text" class="form-control" id="customerName" name="customer_name"  required>
                                         <div class="invalid-feedback">
-                                            Enter Room Name
+                                            Enter Customer Name
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="roomType" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Type</label>
+                                    <label for="customerEmail" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Customer Email</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="roomType" name="room_type" placeholder="" required>
+                                        <input type="text" class="form-control" id="customerEmail" name="customer_email" required>
                                         <div class="invalid-feedback">
-                                            Enter Room Type
+                                            Enter Customer Email
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="persons" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">No. of Persons</label>
+                                    <label for="customerMobile" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Customer Mobile</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="number" class="form-control" id="persons" name="no_of_persons" placeholder="" required>
+                                        <input type="text" class="form-control" id="customerMobile" name="customer_mobile"  required>
                                         <div class="invalid-feedback">
-                                            Enter Number of Persons
+                                            Enter Customer Mobile
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="roomPrice" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Price</label>
+                                    <label for="checkinDate" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Check-in Date</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="number" class="form-control" id="roomPrice" name="room_price" placeholder="" required>
+                                        <input type="date" class="form-control" id="checkinDate" name="checking_date" value="<?php echo isset($cindate) ? $cindate : '' ?>" readonly required>
                                         <div class="invalid-feedback">
-                                            Enter Room Price
+                                            Select Check-in Date
                                         </div>
                                     </div>
                                 </div>
 
-                                
-
-                               
+                                <div class="form-group row">
+                                    <label for="checkoutDate" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Check-out Date</label>
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        <input type="date" class="form-control" id="checkoutDate" name="checkout_date" value="<?php echo isset($coutdate) ? $coutdate : '' ?>" readonly required>
+                                        <div class="invalid-feedback">
+                                            Select Check-out Date
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
-                                    <label for="persons" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">AC Availability</label>
-                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <!-- <div class="switch-button switch-button-sm">
-                                            <input type="checkbox" id="acAvailablity" name="ac_availablity" required>
-                                            <span><label for="acAvailablity"></label></span>
-                                            <div class="invalid-feedback">
-                                                Enter Number of Persons
-                                            </div>
-                                        </div> -->
-
+                                    <label for="paymentWay" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Payment</label>
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12 col-form-label">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes" required>
-                                            <label class="form-check-label" for="inlineRadio1">Available</label>
+                                            <input class="form-check-input" type="radio" name="payment_way" id="inlineRadio1" value="pay now" required>
+                                            <label class="form-check-label" for="inlineRadio1">Pay Now</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no" required>
-                                            <label class="form-check-label" for="inlineRadio2">Not Available</label>
+                                            <input class="form-check-input" type="radio" name="payment_way" id="inlineRadio2" value="pay later" required>
+                                            <label class="form-check-label" for="inlineRadio2">Pay Later</label>
                                         </div>
                                     </div>
                                 </div>
@@ -222,11 +170,34 @@
                                 <div class="row pt-2 pt-sm-5 mt-1">
                                     <div class="col-sm-6">
                                         <p class="text-center">
-                                            <input type="submit" class="btn btn-space btn-primary" name="submit">
+                                            <!-- <input type="submit" class="btn btn-space btn-primary" name="book" value="Book"> -->
+                                            <input type="button" class="btn btn-space btn-primary" value="Book Now" data-toggle="modal" data-target="#verticalyCentered">
                                             <input type="reset" class="btn btn-space btn-secondary">
                                         </p>
                                     </div>
                                 </div>
+
+                                 <!-- Modal -->
+                                 <div class="modal fade" id="verticalyCentered" tabindex="-1" role="dialog" aria-labelledby="verticalyCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="verticalyCenteredLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure to submit booking details?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <input type="submit" class="btn btn-primary" name="book" id="saveButton" value="Yes">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
 
                             </form>
                         </div>
@@ -255,6 +226,65 @@
     <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="assets/libs/js/main-js.js"></script>
     <script src="assets/libs/js/validation.js"></script>
+    <script src="assets/libs/js/utils.js"></script>
+    <script src="assets/libs/js/alert-toast.js"></script>
+
+
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["book"])){
+            $rnumber = trim(htmlspecialchars($_REQUEST["room_number"]));
+            $cname = trim(htmlspecialchars($_REQUEST["customer_name"]));
+            $ceamil = trim(htmlspecialchars($_REQUEST["customer_email"]));
+            $cmobile = trim(htmlspecialchars($_REQUEST["customer_mobile"]));
+            $checking_date = trim(htmlspecialchars($_REQUEST["checking_date"]));
+            $checkout_date = trim(htmlspecialchars($_REQUEST["checkout_date"]));
+            $payment_way  = trim(htmlspecialchars($_REQUEST["payment_way"]));
+
+            $booking_ref = uniqid('booking_', true);
+
+            if (!empty($rnumber) && !empty($cname) && !empty($ceamil) && !empty($cmobile) && !empty($checking_date) && !empty($checkout_date)){
+                // $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND ((checking_date < $checking_date AND checkout_date > $checking_date) OR (checking_date > $checking_date AND checkout_date > $checkout_date) OR (checking_date > $checking_date AND checkout_date < $checkout_date))";                           
+                $sql = "SELECT r.room_number
+                        FROM rooms AS r
+                        WHERE r.room_number IN (
+                            SELECT b.room_number
+                            FROM bookings AS b
+                            WHERE b.room_number = $rnumber AND (b.checking_date < '$checkout_date' AND b.checkout_date > '$checking_date')
+                        )";                     
+                $result = mysqli_query($conn,$sql);
+
+                if (mysqli_num_rows($result) > 0){
+                    $alert_type = "error";
+                    $alert_message = "This room is not available";
+                    $redirect_url = "available-rooms.php";
+                    // echo "<script>alert('This room is not availabe')</script>";
+                }else{
+                    $sql2 = "INSERT INTO bookings(room_number,customer_name,customer_email,customer_mobile,checking_date,checkout_date,paid,booking_ref) VALUES($rnumber,'$cname','$ceamil','$cmobile','$checking_date','$checkout_date',0,'$booking_ref')";
+                    $result2 = mysqli_query($conn,$sql2);
+                    $alert_type = "success";
+                    $alert_message = "Booked successfully";
+
+                    if ($result2 && $payment_way == "pay now"){
+                        $redirect_url = "../payment.php?booking_ref=" . $booking_ref;
+                    }else{
+                        // $redirect_url = "booking-confirmation.php?booking_ref=" . $booking_ref;
+                    }
+                }
+            }else{
+                $alert_type = "error";
+                $alert_message = "All fields required";
+                $redirect_url = "";  // No redirect for errors
+                // echo "<script>alert('All fields required')</script>";
+            }
+
+            // Pass variables to JavaScript
+                echo "<script>
+                var alertType = '$alert_type';
+                var alertMessage = '$alert_message';
+                var redirectUrl = '$redirect_url';
+            </script>";
+        } 
+    ?>
 
 </body>
  

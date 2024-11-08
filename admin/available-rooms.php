@@ -147,6 +147,10 @@
                                                         while($row = mysqli_fetch_row($result)){
                                                             // var_dump($row);
 
+                                                            $rid = urlencode($row[0]);
+                                                            $cindate = urlencode($checking_date);
+                                                            $coutdate = urlencode($checkout_date);
+
                                                             echo 
                                                             "<tr>
                                                                 <td>$row[0]</td>
@@ -159,7 +163,7 @@
                                                                 </td>
                                                                 <td>$row[6]</td>
                                                                 <td>
-                                                                    <a href='new-booking.php?room_id=$row[0]' class='btn btn-warning btn-sm mr-2'>
+                                                                    <a href='new-booking.php?rid=$rid&cindate=$cindate&coutdate=$coutdate' class='btn btn-warning btn-sm mr-2'>
                                                                         Book &nbsp; <i class='fas fa-plus'></i>
                                                                     </a>
                                                                 </td>

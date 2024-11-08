@@ -1,0 +1,95 @@
+.p-3 {
+    padding: 1rem !important;
+}
+
+.translate-middle {
+    transform: translate(-50%, -50%) !important;
+}
+
+.start-50 {
+    left: 50% !important;
+}
+
+.top-50 {
+    top: 50% !important;
+}
+
+.toast-container {
+    --bs-toast-zindex: 1090;
+    position: absolute;
+    z-index: var(--bs-toast-zindex);
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    max-width: 100%;
+    pointer-events: none;
+}
+
+.toast:not(.show) {
+    display: none;
+}
+
+.toast {
+    --bs-toast-zindex: 1090;
+    --bs-toast-padding-x: 0.75rem;
+    --bs-toast-padding-y: 0.5rem;
+    --bs-toast-spacing: 1.5rem;
+    --bs-toast-max-width: 350px;
+    --bs-toast-font-size: 0.875rem;
+    --bs-toast-color: ;
+    --bs-toast-bg: rgba(255, 255, 255, 0.85);
+    --bs-toast-border-width: 1px;
+    --bs-toast-border-color:  rgba(0, 0, 0, 0.175);
+    --bs-toast-border-radius: 0.375rem;
+    --bs-toast-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --bs-toast-header-color: rgba(33, 37, 41, 0.75);
+    --bs-toast-header-bg: rgba(255, 255, 255, 0.85);
+    --bs-toast-header-border-color: rgba(0, 0, 0, 0.175);
+    width: var(--bs-toast-max-width);
+    max-width: 100%;
+    font-size: var(--bs-toast-font-size);
+    color: var(--bs-toast-color);
+    pointer-events: auto;
+    background-color: var(--bs-toast-bg);
+    background-clip: padding-box;
+    border: var(--bs-toast-border-width) solid var(--bs-toast-border-color);
+    box-shadow: var(--bs-toast-box-shadow);
+    border-radius: var(--bs-toast-border-radius);
+}
+
+.toast-header {
+    display: flex;
+    align-items: center;
+    padding: var(--bs-toast-padding-y) var(--bs-toast-padding-x);
+    color: var(--bs-toast-header-color);
+    background-color: var(--bs-toast-header-bg);
+    background-clip: padding-box;
+    border-bottom: var(--bs-toast-border-width) solid var(--bs-toast-header-border-color);
+    border-top-left-radius: calc(var(--bs-toast-border-radius) - var(--bs-toast-border-width));
+    border-top-right-radius: calc(var(--bs-toast-border-radius) - var(--bs-toast-border-width));
+}
+
+.toast-body {
+    padding: var(--bs-toast-padding-x);
+    word-wrap: break-word;
+}
+
+.me-auto {
+    margin-right: auto !important;
+}
+
+/*--------------------------------------------------------------
+# Toast Alert Custom CSS
+--------------------------------------------------------------*/
+.toast-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Adjust the opacity as needed */
+    backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+    z-index: 1050; /* Ensure it's above other elements */
+    display: none; /* Initially hidden */
+  }
+
