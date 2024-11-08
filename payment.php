@@ -252,7 +252,7 @@
                     if (!empty($redirect_admin)){
                         $redirect_url = $redirect_admin;
                     }else{
-                        $redirect_url = "accomodation.php";
+                        $redirect_url = "download-payment-reciept.php?id=$booking_id";
                     }
                 }else{
                     // echo "<script>alert('Something Went Wrong')</script>";
