@@ -61,7 +61,7 @@
                         <h1 class="card-header text-center fs-4 pt-3 pb-3">Booking Confirmation</h1>
 
                         <div class="card-body text-center" style="padding:25px 20px;"> 
-                            <p class="mb-0">Your booking is confirmed. Please select a payment option:</p>
+                            <p class="mb-0">Your booking details are submitted. Please proceed to continue.</p>
 
                             <div class="row mt-4">
                                 <div class="col-sm-6 mb-2">
@@ -74,9 +74,10 @@
                                 <div class="col-sm-6">
                                     <form action="payment.php" method="POST">
                                         <input type="hidden" name="booking_id" value="<?php echo $booking_id; ?>">
-                                        <input type="submit" class="btn btn-primary w-100" value="Pay Now"></button>
+                                        <input type="submit" class="btn btn-success w-100" value="Pay Now"></button>
                                     </form>
                                 </div>
+
                             </div>
 
                         </div>

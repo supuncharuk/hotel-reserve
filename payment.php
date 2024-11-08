@@ -101,7 +101,7 @@
             <main>
 
                 <div class="text-center pb-4">
-                    <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+                    <img class="d-block mx-auto mb-5" src="assets/image/Logo.png" alt="">
                     <h2>Booking Payment</h2>
                 </div>
 

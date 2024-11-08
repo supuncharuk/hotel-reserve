@@ -356,7 +356,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="users.php">Manage Users</a>
+                                    <a class="nav-link" href="manage-users.php">Manage Users</a>
                                 </li>
 
                             </ul>
