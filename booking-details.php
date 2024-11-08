@@ -204,9 +204,14 @@
                 $booking_ref = uniqid('booking_', true);
     
                 if (!empty($rnumber) && !empty($cname) && !empty($ceamil) && !empty($cmobile) && !empty($checking_date) && !empty($checkout_date)){
-                    // $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND ((checking_date < $checking_date AND checkout_date > $checking_date) OR (checking_date > $checking_date AND checkout_date > $checkout_date) OR (checking_date > $checking_date AND checkout_date < $checkout_date))";                           
-                    $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND (checking_date < $checkout_date AND checkout_date > $checking_date)";                           
-                    $result = mysqli_query($conn,$sql);
+                    $sql = "SELECT r.room_number
+                        FROM rooms AS r
+                        WHERE r.room_number IN (
+                            SELECT b.room_number
+                            FROM bookings AS b
+                            WHERE b.room_number = $rnumber AND (b.checking_date < '$checkout_date' AND b.checkout_date > '$checking_date')
+                        )";                     
+                    $result = mysqli_query($conn,$sql);                    
     
                     if (mysqli_num_rows($result) > 0){
                         $alert_type = "error";

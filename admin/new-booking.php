@@ -250,7 +250,6 @@
             $booking_ref = uniqid('booking_', true);
 
             if (!empty($rnumber) && !empty($cname) && !empty($ceamil) && !empty($cmobile) && !empty($checking_date) && !empty($checkout_date)){
-                // $sql =  "SELECT booking_id FROM bookings WHERE room_number=$rnumber AND ((checking_date < $checking_date AND checkout_date > $checking_date) OR (checking_date > $checking_date AND checkout_date > $checkout_date) OR (checking_date > $checking_date AND checkout_date < $checkout_date))";                           
                 $sql = "SELECT r.room_number
                         FROM rooms AS r
                         WHERE r.room_number IN (
