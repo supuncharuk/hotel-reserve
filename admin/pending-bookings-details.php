@@ -99,6 +99,7 @@
                                                 <th>SSC Levy (Rs.)</th>
                                                 <th>Discount (Rs.)</th>
                                                 <th>Total Price (Rs.)</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
 
@@ -116,6 +117,8 @@
                                                         $diffInSeconds =  $checkout_date - $checkin_date;
                                                         $diffInDays = $diffInSeconds / (60 * 60 * 24); // Convert seconds to days
                                                         $ndays = $diffInDays;
+
+                                                        $booking_ref = $row['booking_ref']
                                             ?>
                                             <tr>
                                                 <td><?php echo $row['booking_id'] ?></td>
@@ -130,6 +133,11 @@
                                                 <td><?php echo $row['ssc_levy'] ?></td>
                                                 <td><?php echo $row['discount'] ?></td>
                                                 <td><?php echo $row['total_payment'] ?></td>
+                                                <td>
+                                                    <a href='../payment.php?booking_ref=<?php echo $booking_ref ?>' class='btn btn-warning btn-sm mr-2'>
+                                                        Pay &nbsp; <i class='fas fa-dollar-sign'></i>
+                                                    </a>
+                                                </td>
                                             </tr>
 
                                             <?php  
