@@ -91,7 +91,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Chart</a>
                         <div id="submenu-3" class="collapse submenu" style="">
                             <ul class="nav flex-column">
@@ -115,7 +115,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Forms</a>
@@ -140,7 +140,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Tables</a>
                         <div id="submenu-5" class="collapse submenu" style="">
                             <ul class="nav flex-column">
@@ -149,6 +149,26 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="pages/data-tables.html">Data Tables</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> -->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Bookings</a>
+                        <div id="submenu-5" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="pages/general-table.html">New Booking</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="pages/general-table.html">All Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="pages/general-table.html">Complete Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="pages/general-table.html">Pending Bookings</a>
                                 </li>
                             </ul>
                         </div>
