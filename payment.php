@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
-    <title>Checkout</title>
+    <title>Payment</title>
 
     <?php include_once ("includes/css-links-inc.php") ?>
 
@@ -23,22 +23,6 @@
 
         .input-as-span:focus {
             outline: none; /* Removes the focus outline */
-        }
-
-        /* Add "Rs." before each input with a consistent right-aligned display */
-        .input-as-span-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .input-as-span-wrapper::before {
-            content: "Rs.";
-            position: absolute;
-            right: 100%;
-            margin-right: -100px; /* Space between "Rs." and the number */
-            color: inherit;
         }
     </style>
 
@@ -62,10 +46,18 @@
         $record2 = mysqli_fetch_assoc($result2);
 
         $room_price = $record2['room_price'];
+        $room_price = number_format($room_price, 2, '.', '');
+
         $vat = $room_price * 18 /100;
+        $vat = number_format($vat, 2, '.', '');
+
         $ssc_levy = $room_price * 2.5 / 100;
+        $ssc_levy = number_format($ssc_levy, 2, '.', '');
+
         $promo = 0;
+
         $total = $room_price + $vat + $ssc_levy - $promo;
+        $total = number_format($total, 2, '.', '');
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["checkout"])){
@@ -90,10 +82,9 @@
         <div class="container py-5">
             <main>
 
-                <div class="text-center">
+                <div class="text-center pb-4">
                     <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-                    <h2>Checkout form</h2>
-                    <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+                    <h2>Booking Payment</h2>
                 </div>
 
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
@@ -105,14 +96,20 @@
                         <div class="col-md-5 col-lg-4 order-md-last">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-primary">Payment Description</span>
-                                <!-- <span class="badge bg-primary rounded-pill">3</span> -->
                             </h4>
 
                             <ul class="list-group mb-3">
                                 <li class="list-group-item d-flex justify-content-between lh-sm">
                                     <div>
+                                        <h6 class="my-0">#</h6>
+                                    </div>
+                                    <div>
+                                        <h6>Rs.</h6>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
                                         <h6 class="my-0">Room Price</h6>
-                                        <!-- <small class="text-body-secondary">Brief description</small> -->
                                     </div>
                                     <div class="input-as-span-wrapper text-body-secondary">
                                         <input type="number" class="input-as-span text-body-secondary" value="<?php echo $room_price ?>" disabled>
@@ -121,7 +118,6 @@
                                 <li class="list-group-item d-flex justify-content-between lh-sm">
                                     <div>
                                         <h6 class="my-0">VAT (18%)</h6>
-                                        <!-- <small class="text-body-secondary">Brief description</small> -->
                                     </div>
                                     <div class="input-as-span-wrapper text-body-secondary">
                                         <input type="number" class="input-as-span text-body-secondary" name="vat" value="<?php echo $vat ?>" readonly>
@@ -130,7 +126,6 @@
                                 <li class="list-group-item d-flex justify-content-between lh-sm">
                                     <div>
                                         <h6 class="my-0">SSC Levy</h6>
-                                        <!-- <small class="text-body-secondary">Brief description</small> -->
                                     </div>
                                     <div class="input-as-span-wrapper text-body-secondary">
                                         <input type="number" class="input-as-span text-body-secondary" name="ssc_levy" value="<?php echo $ssc_levy ?>" readonly>
@@ -139,23 +134,24 @@
                                 <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
                                     <div class="text-success">
                                         <h6 class="my-0">Promo code</h6>
-                                        <!-- <small>EXAMPLECODE</small> -->
                                     </div>
                                     <div class="input-as-span-wrapper text-body-secondary">
                                         <input type="number" class="input-as-span text-success" name="promo" value="<?php echo $promo ?>" readonly>
                                     </div>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <span>Total (Rs.)</span>
-                                    <div class="input-as-span-wrapper text-body-secondary">
-                                        <input type="number" class="input-as-span" name="total" value="<?php echo $total ?>" readonly>
+                                <li class="list-group-item d-flex justify-content-between text-danger">
+                                    <div>
+                                        <h6 class="my-0">Total Price</h6>
+                                    </div>
+                                    <div class="input-as-span-wrapper">
+                                        <input type="number" class="input-as-span fw-medium" name="total" value="<?php echo $total ?>" readonly>
                                     </div>
                                 </li>
                             </ul>
 
                             <form class="card p-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Promo code">
+                                    <input type="text" class="form-control" placeholder="Promo code" disabled>
                                     <button type="submit" class="btn btn-secondary" disabled>Redeem</button>
                                 </div>
                             </form>
@@ -167,17 +163,13 @@
 
                             <div class="my-3">
                                 <div class="form-check">
-                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" required>
                                     <label class="form-check-label" for="credit">Credit card</label>
                                 </div>
                                 <div class="form-check">
                                     <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
                                     <label class="form-check-label" for="debit">Debit card</label>
                                 </div>
-                                <!-- <div class="form-check">
-                                    <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-                                    <label class="form-check-label" for="paypal">PayPal</label>
-                                </div> -->
                             </div>
 
                             <div class="row gy-3">
