@@ -156,6 +156,12 @@
                         $sql5 = "SELECT SUM(total_payment) AS thisd_income FROM bookings WHERE paid=1 AND (DATE(updated_at) = CURDATE())";
                         $result5 = mysqli_query($conn, $sql5);
                         $record5 = mysqli_fetch_assoc($result5);
+
+                        if ($record5['thisd_income']){
+                            $thisd_income = $record5['thisd_income'];
+                        }else{
+                            $thisd_income = 0;
+                        }
                     ?>
 
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -163,7 +169,7 @@
                             <div class="card-body">
                                 <h5 class="text-muted">Today's Income</h5>
                                 <div class="d-inline-block">
-                                    <h1 class="mb-1">Rs. <?php echo number_format($record5['thisd_income'],2); ?></h1>
+                                    <h1 class="mb-1">Rs. <?php echo number_format($thisd_income,2); ?></h1>
                                 </div>
                                 
                             </div>
@@ -175,6 +181,12 @@
                         $sql6 = "SELECT SUM(total_payment) AS thism_income FROM bookings WHERE paid=1 AND (YEAR(updated_at) = YEAR(CURDATE()) AND MONTH(updated_at) = MONTH(CURDATE()))";
                         $result6 = mysqli_query($conn, $sql6);
                         $record6 = mysqli_fetch_assoc($result6);
+
+                        if ($record6['thism_income']){
+                            $thism_income = $record6['thism_income'];
+                        }else{
+                            $thism_income = 0;
+                        }
                     ?>
 
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -182,7 +194,7 @@
                             <div class="card-body">
                                 <h5 class="text-muted">This Month Income</h5>
                                 <div class="d-inline-block">
-                                    <h1 class="mb-1">Rs. <?php echo number_format($record6['thism_income'],2); ?></h1>
+                                    <h1 class="mb-1">Rs. <?php echo number_format($thism_income,2); ?></h1>
                                 </div>
                             </div>
                         </div>
@@ -193,6 +205,12 @@
                         $sql7 = "SELECT SUM(total_payment) AS thisy_income FROM bookings WHERE paid=1 AND (YEAR(updated_at) = YEAR(CURDATE()))";
                         $result7 = mysqli_query($conn, $sql7);
                         $record7 = mysqli_fetch_assoc($result7);
+
+                        if ($record7['thisy_income']){
+                            $thisy_income = $record7['thisy_income'];
+                        }else{
+                            $thisy_income = 0;
+                        }
                     ?>
 
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -200,7 +218,7 @@
                             <div class="card-body">
                                 <h5 class="text-muted">This Year Income</h5>
                                 <div class="d-inline-block">
-                                    <h1 class="mb-1">Rs. <?php echo number_format($record7['thisy_income'],2); ?></h1>
+                                    <h1 class="mb-1">Rs. <?php echo number_format($thisy_income,2); ?></h1>
                                 </div>
                             </div>
                         </div>
@@ -210,6 +228,12 @@
                         $sql8 = "SELECT SUM(total_payment) AS total_income FROM bookings WHERE paid=1";
                         $result8 = mysqli_query($conn, $sql8);
                         $record8 = mysqli_fetch_assoc($result8);
+
+                        if ($record8['total_income']){
+                            $total_income = $record8['total_income'];
+                        }else{
+                            $total_income = 0;
+                        }
                     ?>
 
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -217,7 +241,7 @@
                             <div class="card-body">
                                 <h5 class="text-muted">Total Income</h5>
                                 <div class="d-inline-block">
-                                    <h1 class="mb-1">Rs. <?php echo number_format($record8['total_income'],2); ?></h1>
+                                    <h1 class="mb-1">Rs. <?php echo number_format($total_income,2); ?></h1>
                                 </div>
                             </div>
                         </div>

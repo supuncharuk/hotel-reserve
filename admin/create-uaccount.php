@@ -75,10 +75,8 @@
         <div class="card">
             <div class="card-header text-center">
                 <a href="index.php">
-                    <img class="logo-img" src="assets/images/logo.png" alt="logo">
+                    <img class="logo-img" src="assets/images/logo/logo-1.png" alt="logo">
                 </a>
-                <h3 class="mt-1 mb-1">Registrations Form</h3>
-                <p>Please enter your user information.</p>
             </div>
             <div class="card-body">
                 <div class="form-group">

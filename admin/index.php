@@ -56,9 +56,9 @@
         <div class="card ">
             <div class="card-header text-center">
                 <a href="index.php">
-                    <img class="logo-img" src="assets/images/logo.png" alt="logo">
+                    <img class="logo-img" src="assets/images/logo/logo-1.png" alt="logo">
                 </a>
-                <span class="splash-description">Please enter your user information.</span>
+                <!-- <span class="splash-description">Please enter your user information.</span> -->
             </div>
             <div class="card-body">
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
@@ -100,54 +100,6 @@
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="assets/libs/js/validation.js"></script>
     <script src="assets/libs/js/alert-toast.js"></script>
-
-    <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["login"])){
-            $uname = trim(htmlspecialchars($_REQUEST["uname"]));
-            $password = trim(htmlspecialchars($_REQUEST["password"]));
-
-            if (!empty($uname) && !empty($password)){
-                $sql = "SELECT * FROM users WHERE uname='$uname'";
-                $result = mysqli_query($conn,$sql);
-
-                if (mysqli_num_rows($result) > 0){
-                    $record = mysqli_fetch_assoc($result);
-
-                    $hashed_password = $record['upassword'];
-
-                    // Verify the entered password against the hashed password
-                    if (password_verify($password, $hashed_password)) {
-                        session_start();
-                        $_SESSION['uname'] = $uname;
-                        header("Location: admin-dashboard.php");
-                        exit();
-                    } else {
-                        $alert_type = "error";
-                        $alert_message = "Incorrect Password";
-                        $redirect_url = "";
-                    }
-                   
-                }else{
-                    $alert_type = "error";
-                    $alert_message = "Invalid Username";
-                    $redirect_url = "";
-                }
-
-            }else{
-                // echo "<script>alert('All fields required')</script>";
-                $alert_type = "error";
-                $alert_message = "All fields required";
-                $redirect_url = "";
-            }
-
-            // Pass variables to JavaScript
-            echo "<script>
-            var alertType = '$alert_type';
-            var alertMessage = '$alert_message';
-            var redirectUrl = '$redirect_url';
-            </script>";
-        } 
-    ?>
 
 </body>
  
