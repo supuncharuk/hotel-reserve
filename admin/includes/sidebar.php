@@ -159,16 +159,16 @@
                         <div id="submenu-5" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/general-table.html">New Booking</a>
+                                    <a class="nav-link" href="available-rooms.php">New Booking</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/general-table.html">All Bookings</a>
+                                    <a class="nav-link" href="all-bookings-details.php">All Bookings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/general-table.html">Complete Bookings</a>
+                                    <a class="nav-link" href="complete-bookings-details.php">Complete Bookings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/general-table.html">Pending Bookings</a>
+                                    <a class="nav-link" href="pending-bookings-details.php">Pending Bookings</a>
                                 </li>
                             </ul>
                         </div>
