@@ -86,17 +86,12 @@
                             <div class="card-body">
 
                                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="needs-validation pb-5" id="form" method="post" novalidate>
-                                    
-                                    <?php
-                                        $today = date("Y-m-d");
-                                        $tomorrow = date("Y-m-d", strtotime("+1 day"));
-                                    ?>
 
                                     <div class="form-group row">
                                         <div class="col-md-6 pb-3">
                                             <label for="CheckingDate" class="col-sm-3 col-xs-12 col-form-label">Check-in Date</label>
                                             <div class="col-sm-9 col-xs-12">
-                                                <input type="date" class="form-control" id="CheckingDate" name="checking_date"  min="<?php echo $today; ?>" required>
+                                                <input type="date" class="form-control" id="CheckingDate" name="checking_date" required>
                                                 <div class="invalid-feedback">
                                                     Select your checkin date
                                                 </div>
@@ -106,7 +101,7 @@
                                         <div class="col-md-6 pb-3">
                                             <label for="CheckoutDate" class="col-sm-3 col-xs-12 col-form-label">Check-out Date</label>
                                             <div class="col-sm-9 col-xs-12">
-                                                <input type="date" class="form-control" id="CheckoutDate" name="checkout_date" min="<?php echo $tomorrow; ?>" required>
+                                                <input type="date" class="form-control" id="CheckoutDate" name="checkout_date" required>
                                                 <div class="invalid-feedback">
                                                     Select your checkout date
                                                 </div>
@@ -248,6 +243,28 @@
     <script src="assets/libs/js/dataTables.rowGroup.min.js"></script>
     <script src="assets/libs/js/dataTables.select.min.js"></script>
     <script src="assets/libs/js/dataTables.fixedHeader.min.js"></script>
+    <script>
+        // Get today's date in yyyy-mm-dd format
+        const today = new Date().toISOString().split("T")[0];
+        
+        // Set minimum date for check-in as today
+        const checkinInput = document.getElementById("CheckingDate");
+        checkinInput.setAttribute("min", today);
+        checkinInput.addEventListener("change", updateCheckoutMinDate);
+
+        // Function to set checkout date to be at least one day after check-in
+        function updateCheckoutMinDate() {
+            const checkinDate = new Date(checkinInput.value);
+            checkinDate.setDate(checkinDate.getDate() + 1);
+
+            const checkoutInput = document.getElementById("CheckoutDate");
+            const minCheckoutDate = checkinDate.toISOString().split("T")[0];
+            checkoutInput.setAttribute("min", minCheckoutDate);
+        }
+
+        // Initialize checkout min date on page load
+        updateCheckoutMinDate();
+    </script>
 
     <script>
         function del(id){

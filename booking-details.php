@@ -169,6 +169,29 @@
         <script src="assets/js/utils.js"></script>
         <script src="assets/js/alert-toast.js"></script>
 
+        <script>
+            // Get today's date in yyyy-mm-dd format
+            const today = new Date().toISOString().split("T")[0];
+            
+            // Set minimum date for check-in as today
+            const checkinInput = document.getElementById("CheckingDate");
+            checkinInput.setAttribute("min", today);
+            checkinInput.addEventListener("change", updateCheckoutMinDate);
+
+            // Function to set checkout date to be at least one day after check-in
+            function updateCheckoutMinDate() {
+                const checkinDate = new Date(checkinInput.value);
+                checkinDate.setDate(checkinDate.getDate() + 1);
+
+                const checkoutInput = document.getElementById("CheckoutDate");
+                const minCheckoutDate = checkinDate.toISOString().split("T")[0];
+                checkoutInput.setAttribute("min", minCheckoutDate);
+            }
+
+            // Initialize checkout min date on page load
+            updateCheckoutMinDate();
+        </script>
+
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["submit"])){
                 $rnumber = trim(htmlspecialchars($_REQUEST["room_number"]));
