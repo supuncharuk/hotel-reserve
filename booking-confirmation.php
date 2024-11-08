@@ -24,7 +24,10 @@
         <style>
             html,
             body{
-                height: 100%;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;  
+                box-sizing: border-box;            
             }
             section{
                 display: flex;
@@ -33,6 +36,11 @@
                 padding: 40px 0;
                 background-color:#2466dee3;
             } 
+            .main-content {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
             .spl-container {
                 width: 100%;
                 max-width: 700px;
@@ -46,15 +54,13 @@
     </head>
     <body style="background-color:#2466dee3;">
 
-        <!--================Contact Area =================-->
-        <section class="h-100">
+        <section class="main-content">
             <div class="spl-container">
                 <div class="">      
                     <div class="card">
                         <h1 class="card-header text-center fs-4 pt-3 pb-3">Booking Confirmation</h1>
 
                         <div class="card-body text-center" style="padding:25px 20px;"> 
-                            <!-- <h2>Booking Confirmation</h2> -->
                             <p class="mb-0">Your booking is confirmed. Please select a payment option:</p>
 
                             <div class="row mt-4">
@@ -78,7 +84,8 @@
                 </div>
             </div>
         </section>
-        <!--================Contact Area =================-->
+
+        <?php include_once ("includes/footer2.php") ?>
 
         <?php include_once ("includes/js-links-inc.php") ?>
 
