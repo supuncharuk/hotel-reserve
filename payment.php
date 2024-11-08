@@ -194,8 +194,8 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="cc-expiration" class="form-label">Expiration</label>
-                                    <input type="text" class="form-control" id="cc-expiration" name="cc-expiration" required>
+                                    <label for="ccExpiration" class="form-label">Expiration</label>
+                                    <input type="text" class="form-control" id="ccExpiration" name="cc-expiration" mixlength="5" required>
                                     <div class="invalid-feedback">
                                         Expiration date required
                                     </div>
@@ -203,7 +203,7 @@
 
                                 <div class="col-md-3">
                                     <label for="cc-cvv" class="form-label">CVV</label>
-                                    <input type="number" class="form-control" id="cc-cvv" name="cc-cvv" required>
+                                    <input type="number" class="form-control" id="cvv" name="cc-cvv" min="100" max="999" required>
                                     <div class="invalid-feedback">
                                         Security code required
                                     </div>
@@ -229,6 +229,33 @@
         <?php include_once ("includes/js-links-inc.php") ?>
         <script src="assets/js/validation.js"></script>
         <script src="assets/js/alert-toast.js"></script>
+
+        <script>
+            document.getElementById('ccExpiration').addEventListener('input', function (e) {
+                let input = e.target.value;
+                // Remove non-numeric characters
+                input = input.replace(/\D/g, '');
+                
+                // Format as MM/DD
+                if (input.length >= 2) {
+                    input = input.slice(0, 2) + '/' + input.slice(2, 4);
+                }
+                
+                e.target.value = input;
+            });
+
+            const numberInput = document.getElementById("cvv");
+
+            numberInput.addEventListener("input", function () {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/[^0-9]/g, "");
+
+                // Limit the length to 3 digits
+                if (this.value.length > 3) {
+                    this.value = this.value.slice(0, 3);
+                }
+            });
+        </script>
 
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["pay"])){
