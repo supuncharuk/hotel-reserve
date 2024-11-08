@@ -16,14 +16,6 @@
                     <li class="nav-item"><a class="nav-link" href="about.php">About us</a></li>
                     <li class="nav-item"><a class="nav-link" href="accomodation.php">Accomodation</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
-                    <li class="nav-item submenu dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Blog</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link" href="blog.php">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link" href="blog-single.php">Blog Details</a></li>
-                        </ul>
-                    </li> 
-                    <li class="nav-item"><a class="nav-link" href="elements.php">Elements</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
                 </ul>
             </div> 
