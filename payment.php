@@ -18,7 +18,6 @@
             $record = mysqli_fetch_assoc($result);
             $room_num = $record['room_number'];
             $booking_id = $record['booking_id'];
-            $from_admin = "admin/admin-dashboard.php";
         }
 
         $checkin_date = strtotime($record['checking_date']);
@@ -211,7 +210,7 @@
                                 </div>
                             </div>
 
-                            <input type="hidden" name="from_admin" value="<?php echo isset($from_admin) ? $from_admin : '' ?>">
+                            <!-- <input type="hidden" name="from_admin" value="<?php echo isset($from_admin) ? $from_admin : '' ?>"> -->
 
                             <hr class="my-4">
 
@@ -238,7 +237,7 @@
                 $ssc_levy = trim(htmlspecialchars($_REQUEST["ssc_levy"]));
                 $promo = trim(htmlspecialchars($_REQUEST["promo"]));
                 $total = trim(htmlspecialchars($_REQUEST["total"]));
-                $redirect_admin = trim(htmlspecialchars($_REQUEST["from_admin"]));
+                // $redirect_admin = trim(htmlspecialchars($_REQUEST["from_admin"]));
     
                 $sql3 = "UPDATE bookings SET paid='1', vat=$vat, ssc_levy=$ssc_levy, discount=$promo, total_payment=$total WHERE booking_id = $booking_id";
     
@@ -249,11 +248,11 @@
                     $alert_type = "success";
                     $alert_message = "Your Payment is successfull";
 
-                    if (!empty($redirect_admin)){
-                        $redirect_url = $redirect_admin;
-                    }else{
+                    // if (!empty($redirect_admin)){
+                    //     $redirect_url = $redirect_admin;
+                    // }else{
                         $redirect_url = "download-payment-reciept.php?id=$booking_id";
-                    }
+                    // }
                 }else{
                     // echo "<script>alert('Something Went Wrong')</script>";
                     $alert_type = "error";

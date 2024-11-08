@@ -65,16 +65,17 @@
 
                             <div class="row mt-4">
                                 <div class="col-sm-6 mb-2">
-                                    <form action="download-booking-details" method="POST">
+                                    <form action="download-booking-details.php" id="downloadForm" method="POST" target="downloadBookingDetailsFrame">
                                         <input type="hidden" name="booking_id" value="<?php echo $booking_id; ?>" readonly>
-                                        <input type="submit" class="btn btn-warning w-100" value="Pay Later"></button>
                                     </form>
+                                    <!-- Visible button that triggers the form submission and initiates the redirect -->
+                                    <button onclick="downloadAndRedirect()" class="btn btn-warning w-100">Pay Later</button>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <form action="payment.php" method="POST">
                                         <input type="hidden" name="booking_id" value="<?php echo $booking_id; ?>">
-                                        <input type="submit" class="btn btn-success w-100" value="Pay Now"></button>
+                                        <input type="submit" class="btn btn-success w-100" value="Pay Now">
                                     </form>
                                 </div>
 
@@ -86,9 +87,23 @@
             </div>
         </section>
 
+        <iframe id="downloadBookingDetailsFrame" name="downloadBookingDetailsFrame" style="display:none;"></iframe>
+
         <?php include_once ("includes/footer2.php") ?>
 
         <?php include_once ("includes/js-links-inc.php") ?>
+
+        <script>
+            function downloadAndRedirect() {
+                // Submit the form to trigger the PDF download
+                document.getElementById('downloadForm').submit();
+
+                // Delay the redirect by a few seconds to allow the download to start
+                setTimeout(function() {
+                    window.location.href = 'index.php';
+                }, 3000); // Redirect after 3 seconds; adjust delay as needed
+            }
+        </script>        
 
     </body>
 </html>

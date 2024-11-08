@@ -268,7 +268,7 @@
                     if ($result2 && $payment_way == "pay now"){
                         $redirect_url = "../payment.php?booking_ref=" . $booking_ref;
                     }else{
-                        // $redirect_url = "booking-confirmation.php?booking_ref=" . $booking_ref;
+                        $redirect_url = "../booking-confirmation.php?booking_ref=" . $booking_ref;
                     }
                 }
             }else{

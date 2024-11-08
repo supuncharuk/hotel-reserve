@@ -41,7 +41,7 @@
     <p><strong>Customer Name:</strong> $customer_name</p>
     <p><strong>Room Number:</strong> $room_number</p>
     <p><strong>Check-In Date:</strong> $check_in</p>
-    <p><strong>Check-In Time:</strong>2:00 P.M.</p>
+    <p><strong>Check-In Time:</strong> 2:00 P.M.</p>
     <p><strong>Check-Out Date:</strong> $check_out</p>
     <p><strong>Check-Out Time:</strong> 12.00 P.M.</p>
     ";
@@ -51,6 +51,5 @@
 
     // Output PDF as a downloadable file
     $pdf->Output('Booking_Details.pdf', 'D');
-    ?>
 
 ?>

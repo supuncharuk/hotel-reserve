@@ -17,6 +17,7 @@
                     <li class="nav-item"><a class="nav-link" href="accomodation.php">Accomodation</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin/index.php">Login</a></li>
                 </ul>
             </div> 
         </nav>

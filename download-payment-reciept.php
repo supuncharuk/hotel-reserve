@@ -18,8 +18,8 @@
     // Set PDF metadata
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('Hotel Reservation System');
-    $pdf->SetTitle('Booking Details');
-    $pdf->SetSubject('Room Booking Details');
+    $pdf->SetTitle('Payment Details');
+    $pdf->SetSubject('Room Payment Details');
     $pdf->SetKeywords('Booking, PDF, Hotel');
 
     // Set margins and add a page
@@ -68,6 +68,11 @@
 
     // Output PDF as a downloadable file
     $pdf->Output('Payment_Details.pdf', 'D');
-    ?>
+
+    echo "<script>
+        setTimeout(function() {
+            window.location.href = 'index.php';
+        }, 3000); // Redirect after 3 seconds
+    </script>";
 
 ?>
