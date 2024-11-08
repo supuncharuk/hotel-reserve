@@ -18,14 +18,8 @@
             $record = mysqli_fetch_assoc($result);
             $room_num = $record['room_number'];
             $booking_id = $record['booking_id'];
-            $from_admin = "admin/available-rooms.php";
+            $from_admin = "admin/admin-dashboard.php";
         }
-        
-
-        // $checkin_date = new DateTime($record['checking_date']);
-        // $checkout_date = new DateTime($record['checkout_date']);
-
-        // $ndays = $checkin_date->diff($checkout_date);
 
         $checkin_date = strtotime($record['checking_date']);
         $checkout_date= strtotime($record['checkout_date']);
