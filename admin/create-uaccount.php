@@ -16,6 +16,8 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/libs/css/toast.css">
+
     <style>
         html,
         body {
@@ -37,38 +39,19 @@
 <!-- ============================================================== -->
 
 <body>
-    
-    <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["submit"])){
-            $uname = trim(htmlspecialchars($_REQUEST["uname"]));
-            $email = trim(htmlspecialchars($_REQUEST["email"]));
-            $password = trim(htmlspecialchars($_REQUEST["password"]));
 
-            if (!empty($uname) && !empty($email) && !empty($password)){
-                $sql = "SELECT * FROM users WHERE uname='$uname'";
-                $result = mysqli_query($conn,$sql);
-
-                if (mysqli_num_rows($result)==0){
-                    $password = password_hash($password, PASSWORD_DEFAULT);
-
-                    $sql2 = "INSERT INTO users VALUES('$uname','$email','$password','1')";
-                    $result2 = mysqli_query($conn,$sql2);
-
-                    if ($result2){
-                        echo "<script>alert('Create user account successfully')</script>";
-                    }else{
-                        echo "<script>alert('User account not created')</script>";
-                    }
-                }else{
-                    echo "<script>alert('This username is already exists')</script>";
-                }
-            }else{
-                echo "<script>alert('All fields required')</script>"
-                ;
-            }
-        } 
-    ?>
-
+    <div class="toast-container top-50 start-50 translate-middle p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <strong class="me-auto">Alert</strong>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+            </div>
+            <div class="toast-body" id="alert_msg">
+                <!--Message Here-->
+            </div>
+        </div>
+    </div>
+    <div id="toastBackdrop" class="toast-backdrop"></div>
 
     <!-- ============================================================== -->
     <!-- signup form  -->
@@ -143,6 +126,59 @@
     <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/libs/js/main-js.js"></script>
     <script src="assets/libs/js/validation.js"></script>
+    <script src="assets/libs/js/alert-toast.js"></script>
+
+
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["submit"])){
+            $uname = trim(htmlspecialchars($_REQUEST["uname"]));
+            $email = trim(htmlspecialchars($_REQUEST["email"]));
+            $password = trim(htmlspecialchars($_REQUEST["password"]));
+
+            if (!empty($uname) && !empty($email) && !empty($password)){
+                $sql = "SELECT * FROM users WHERE uname='$uname'";
+                $result = mysqli_query($conn,$sql);
+
+                if (mysqli_num_rows($result)==0){
+                    $password = password_hash($password, PASSWORD_DEFAULT);
+
+                    $sql2 = "INSERT INTO users VALUES('$uname','$email','$password','no','1')";
+                    $result2 = mysqli_query($conn,$sql2);
+
+                    if ($result2){
+                        // echo "<script>alert('Create user account successfully')</script>";
+                        $alert_type = "success";
+                        $alert_message = "Created user account successfully";
+                        $redirect_url = "admin-dashboard.php";
+                    }else{
+                        // echo "<script>alert('User account not created')</script>";
+                        $alert_type = "error";
+                        $alert_message = "User account not created";
+                        $redirect_url = "";
+                    }
+                }else{
+                    // echo "<script>alert('This username is already exists')</script>";
+                    $alert_type = "error";
+                    $alert_message = "This username is already exists";
+                    $redirect_url = "#";
+                }
+            }else{
+                // echo "<script>alert('All fields required')</script>";
+                $alert_type = "error";
+                $alert_message = "All fields required";
+                $redirect_url = "";
+            }
+
+            // Pass variables to JavaScript
+            echo "<script>
+            var alertType = '$alert_type';
+            var alertMessage = '$alert_message';
+            var redirectUrl = '$redirect_url';
+            </script>";
+        } 
+    ?>
+
+
 </body>
 
  
