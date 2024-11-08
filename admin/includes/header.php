@@ -1,6 +1,9 @@
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">
-        <a class="navbar-brand" href="index.html">Concept</a>
+        <a class="navbar-brand" href="index.html">
+            <!-- Concept -->
+            <img src="assets/images/logo/logo-1.png" alt="royal-hotel-logo1">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
