@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/buttons.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/select.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    <link rel="stylesheet" href="assets/libs/css/toast.css">
 
     <style>
         table th,tr{
@@ -35,6 +36,20 @@
 </head>
 
 <body>
+
+    <div class="toast-container top-50 start-50 translate-middle p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <strong class="me-auto">Alert</strong>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+            </div>
+            <div class="toast-body" id="alert_msg">
+                <!--Message Here-->
+            </div>
+        </div>
+    </div>
+    <div id="toastBackdrop" class="toast-backdrop"></div>
+
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -194,6 +209,7 @@
     <script src="assets/libs/js/dataTables.rowGroup.min.js"></script>
     <script src="assets/libs/js/dataTables.select.min.js"></script>
     <script src="assets/libs/js/dataTables.fixedHeader.min.js"></script>
+    <script src="assets/libs/js/alert-toast.js"></script>
 
     <script>
         function del(id){
@@ -205,10 +221,21 @@
                 url: 'includes/room-del-action.php',
                 type: 'POST',
                 data: {id:id},
-                success: function(){
-                    alert("Successfully deleted");
-                    window.location.reload();
-                }
+                success: function(response){
+                    if (response.success) {
+                        show_alert('success', response.message);
+                        setTimeout(function() {
+                            hide_alert();
+                            location.reload();
+                        }, 3000);
+                    } else {
+                        show_alert('error', response.message);
+                        setTimeout(function() {
+                            hide_alert();
+                            location.reload();
+                        }, 3000);
+                    }
+                },
             });
         }
     </script>

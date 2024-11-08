@@ -147,7 +147,7 @@
                         // echo "<script>alert('Create user account successfully')</script>";
                         $alert_type = "success";
                         $alert_message = "Created user account successfully";
-                        $redirect_url = "admin-dashboard.php";
+                        $redirect_url = "admin-home-page.php";
                     }else{
                         // echo "<script>alert('User account not created')</script>";
                         $alert_type = "error";

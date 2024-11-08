@@ -21,6 +21,8 @@
         } else {
             echo "<script>alert('Room not found.')</script>";
         }
+    }else{
+        $room = ['','','','','','',''];
     }
 ?>
 
@@ -38,9 +40,24 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/libs/css/toast.css">
 </head>
 
 <body>
+
+    <div class="toast-container top-50 start-50 translate-middle p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <strong class="me-auto">Alert</strong>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+            </div>
+            <div class="toast-body" id="alert_msg">
+                <!--Message Here-->
+            </div>
+        </div>
+    </div>
+    <div id="toastBackdrop" class="toast-backdrop"></div>
+    
     <?php
     
 
@@ -66,7 +83,10 @@
                     $check_result = mysqli_query($conn, $check_room_query);
                     
                     if (mysqli_num_rows($check_result) > 0) {
-                        echo "<script>alert('Room number already exists. Please choose a different room number.');</script>";
+                        // echo "<script>alert('Room number already exists. Please choose a different room number.');</script>";
+                        $alert_type = "error";
+                        $alert_message = "Room number already exists. Please choose a different room number";
+                        $redirect_url = "";
                         exit;  // Stop further execution
                     }
                 }
@@ -77,7 +97,10 @@
                     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
                     if ($imageFileType != "webp" && $imageFileType != "jpg" && $imageFileType != "jpeg") {
-                        echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
+                        // echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
+                        $alert_type = "error";
+                        $alert_message = "Sorry, only WEBP,JPG,JPEG files are allowed";
+                        $redirect_url = "";
                     }else{
                         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
                         $image_name = basename($_FILES["image"]["name"]);
@@ -93,21 +116,40 @@
                     // Update room details
                     $update_query = "UPDATE rooms SET room_name='$room_name', room_image_name='$image_name', room_type='$room_type', no_persons=$no_persons, ac_availability='$ac_availablity', room_price=$room_price WHERE room_number=$room_number";
                     if (mysqli_query($conn, $update_query)) {
-                        echo "<script>alert('Room updated successfully'); window.location='room-details.php';</script>";
+                        // echo "<script>alert('Room updated successfully'); window.location='room-details.php';</script>";
+                        $alert_type = "success";
+                        $alert_message = "Room updated successfully";
+                        $redirect_url = "room-details.php";
                     } else {
-                        echo "<script>alert('Error updating room');</script>";
+                        // echo "<script>alert('Error updating room');</script>";
+                        $alert_type = "error";
+                        $alert_message = "Error updating room";
+                        $redirect_url = "";
                     }
                 }else{
                     // Insert new room details
                     $insert_query = "INSERT INTO rooms(room_number, room_name, room_image_name, room_type, no_persons, ac_availability, room_price) VALUES ($room_number, '$room_name', '$image_name', '$room_type', $no_persons, '$ac_availablity', $room_price)";
                     if (mysqli_query($conn, $insert_query)) {
-                        echo "<script>alert('Room added successfully'); window.location='room-details.php';</script>";
+                        // echo "<script>alert('Room added successfully'); window.location='room-details.php';</script>";
+                        $alert_type = "success";
+                        $alert_message = "Room added successfully";
+                        $redirect_url = "room-details.php";
                     } else {
-                        echo "<script>alert('Error adding room');</script>";
+                        // echo "<script>alert('Error adding room');</script>";
+                        $alert_type = "error";
+                        $alert_message = "Error adding room";
+                        $redirect_url = "";
                     }
                 }
                 
-            }          
+            } 
+            
+            // Pass variables to JavaScript
+            echo "<script>
+                var alertType = '$alert_type';
+                var alertMessage = '$alert_message';
+                var redirectUrl = '$redirect_url';
+             </script>";
         }
     ?>
 
@@ -191,12 +233,24 @@
                                 <div class="form-group row">
                                     <label for="roomType" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">Room Type</label>
                                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" id="roomType" name="room_type" value="<?php echo $is_edit ? $room[3] : ''; ?>" placeholder="" required>
+                                        <?php $stype = $is_edit ? $room[3] : ''; ?>
+                                        <select class="form-control" id="roomType" name="room_type" required>
+                                            <option value="" <?php echo ($stype=='') ? 'selected' : '' ?> disabled>Select</option>
+                                            <option value="normal" <?php echo ($stype=='normal') ? 'selected' : '' ?>>Normal</option>
+                                            <option value="special" <?php echo ($stype=='special') ? 'selected' : '' ?>>Special</option>
+                                        </select>
                                         <div class="invalid-feedback">
-                                            Enter Room Type
+                                            Select Room Type
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- <div class="form-group">
+                                    <label for="input-select">Example Select</label>
+                                    <select class="form-control" id="input-select">
+                                        <option>Choose Example</option>
+                                    </select>
+                                </div> -->
 
                                 <div class="form-group row">
                                     <label for="persons" class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">No. of Persons</label>
@@ -308,6 +362,7 @@
     <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="assets/libs/js/main-js.js"></script>
     <script src="assets/libs/js/validation.js"></script>
+    <script src="assets/libs/js/alert-toast.js"></script>
 
 </body>
  

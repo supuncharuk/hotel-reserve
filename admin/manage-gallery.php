@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/buttons.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/select.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    <link rel="stylesheet" href="assets/libs/css/toast.css">
 
     <style>
         table th,tr{
@@ -34,6 +35,19 @@
 
 <body>
 
+    <div class="toast-container top-50 start-50 translate-middle p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <strong class="me-auto">Alert</strong>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+            </div>
+            <div class="toast-body" id="alert_msg">
+                <!--Message Here-->
+            </div>
+        </div>
+    </div>
+    <div id="toastBackdrop" class="toast-backdrop"></div>
+
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["upload"])){
             if (!empty($_FILES["gallery_image"]["name"])){
@@ -42,20 +56,39 @@
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     
                 if ($imageFileType != "webp" && $imageFileType != "jpg" && $imageFileType != "jpeg") {
-                    echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
+                    // echo "<script>alert('Sorry, only WEBP,JPG,JPEG files are allowed.')</script>";
+                    $alert_type = "error";
+                    $alert_message = "Sorry, only WEBP,JPG,JPEG files are allowed";
+                    $redirect_url = "";
                 }else{
                     if (file_exists($target_file)){
-                        echo "<script>alert('Sorry, image already exists.')</script>";
+                        // echo "<script>alert('Sorry, image already exists.')</script>";
+                        $alert_type = "error";
+                        $alert_message = "Sorry, image already exists";
+                        $redirect_url = "";
                     }else{
                         if (move_uploaded_file($_FILES["gallery_image"]["tmp_name"], $target_file)) {
-                            echo "<script>alert('Image has been uploaded successfully')</script>";
+                            // echo "<script>alert('Image has been uploaded successfully')</script>";
+                            $alert_type = "success";
+                            $alert_message = "Image has been uploaded successfully";
+                            $redirect_url = "";
                         } else {
                             echo "<script>alert('Sorry, there was an error uploading your file.')</script>";
+                            $alert_type = "error";
+                            $alert_message = "Sorry, there was an error uploading your file";
+                            $redirect_url = "";
                         }
                     }
                 }
     
             }
+
+            // Pass variables to JavaScript
+            echo "<script>
+                var alertType = '$alert_type';
+                var alertMessage = '$alert_message';
+                var redirectUrl = '$redirect_url';
+             </script>";
         }
 
         // If the delete button is clicked
@@ -67,13 +100,29 @@
             // Check if the file exists and then delete it
             if (file_exists($image_path)) {
                 if (unlink($image_path)) {
-                    echo "<script>alert('Image has been deleted successfully.')</script>";
+                    // echo "<script>alert('Image has been deleted successfully.')</script>";
+                    $alert_type = "success";
+                    $alert_message = "Image has been deleted successfully";
+                    $redirect_url = "";
                 } else {
-                    echo "<script>alert('Sorry, there was an error deleting the image.')</script>";
+                    // echo "<script>alert('Sorry, there was an error deleting the image.')</script>";
+                    $alert_type = "error";
+                    $alert_message = "Sorry, there was an error deleting the image";
+                    $redirect_url = "";
                 }
             } else {
-                echo "<script>alert('Image does not exist.')</script>";
+                // echo "<script>alert('Image does not exist.')</script>";
+                $alert_type = "error";
+                $alert_message = "Image does not exist";
+                $redirect_url = "";
             }
+
+            // Pass variables to JavaScript
+            echo "<script>
+                var alertType = '$alert_type';
+                var alertMessage = '$alert_message';
+                var redirectUrl = '$redirect_url';
+             </script>";
         }
     ?>   
 
@@ -284,6 +333,7 @@
     <script src="assets/libs/js/dataTables.buttons.min.js"></script>
     <script src="assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
     <script src="assets/vendor/datatables/js/data-table.js"></script>
+    <script src="assets/libs/js/alert-toast.js"></script>
 
 </body>
  
