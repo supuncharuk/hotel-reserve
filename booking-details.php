@@ -15,7 +15,10 @@
         <style>
             html,
             body{
-                height: 100%;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;  
+                box-sizing: border-box;            
             }
             section{
                 display: flex;
@@ -24,6 +27,11 @@
                 padding: 40px 0;
                 background-color:#2466dee3;
             } 
+            .main-content {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
             .spl-container {
                 width: 100%;
                 max-width: 700px;
@@ -51,8 +59,7 @@
             </div>
             <div id="toastBackdrop" class="toast-backdrop"></div>
                
-        <!--================Contact Area =================-->
-        <section class="h-100">
+        <section class="main-content">
             <div class="spl-container">
                 <div class="">      
                     <div class="card">
@@ -124,10 +131,6 @@
                                     </div>
                                 </div>
 
-                            
-                                <!-- <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="btn theme_btn button_hover">Send Message</button>
-                                </div> -->
                                 <div class="form-group pt-2 text-center">
                                     <input type="button" class="btn btn-block btn-primary" value="Book Now" data-bs-toggle="modal" data-bs-target="#verticalyCentered">
                                 </div>
@@ -150,6 +153,7 @@
                                         </div>
                                     </div>
                                 </div> 
+                                <!-- Modal -->
 
                             </form>
 
@@ -158,7 +162,8 @@
                 </div>
             </div>
         </section>
-        <!--================Contact Area =================-->
+
+        <?php include_once ("includes/footer2.php") ?>
 
         <?php include_once ("includes/js-links-inc.php") ?>
         <script src="assets/js/validation.js"></script>
