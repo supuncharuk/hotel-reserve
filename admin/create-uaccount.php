@@ -95,7 +95,7 @@
                         <span class="input-group-text" style="border-radius:2px; cursor: pointer;" id="toggleConfirmPassword"><i class="fa fa-eye" style="font-size:18px;" aria-hidden="true"></i></span>
                     </div>
                     <div class="invalid-feedback" id="confirmPasswordFeedback">
-                        Passwords do not match
+                        Passwords doesn't not match
                     </div>
                 </div>
 
@@ -160,7 +160,7 @@
                     // echo "<script>alert('This username is already exists')</script>";
                     $alert_type = "error";
                     $alert_message = "This username is already exists";
-                    $redirect_url = "#";
+                    $redirect_url = "";
                 }
             }else{
                 // echo "<script>alert('All fields required')</script>";

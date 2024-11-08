@@ -1,3 +1,9 @@
+<?php
+    if (isset($_SESSION['uname'])){
+        $uname = $_SESSION['uname'];
+    }
+?>
+
 <div class="nav-left-sidebar sidebar-dark">
     <div class="menu-list">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -346,26 +352,21 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#users" aria-controls="users"><i class="fa fa-users" aria-hidden="true"></i>Users</a>
-                        <div id="users" class="collapse submenu" style="">
-                            <ul class="nav flex-column">
+                    <?php
+                        require_once ("config.php");
+                        // $uname = $_SESSION['uname'];
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="create-uaccount.php">Create User Account</a>
-                                </li>
+                        $sql = "SELECT * FROM users WHERE uname='$uname'";
+                        $result = mysqli_query($conn, $sql);
+                        $record = mysqli_fetch_assoc($result);
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="manage-users.php">Manage Users</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="create-uaccount.php"><i class="fa fa-user-plus" aria-hidden="true"></i>Create User Account</a>
-                    </li> -->
+                        if ($record['is_admin'] == 'yes'){
+                            echo "
+                            <li class='nav-item'>
+                                <a class='nav-link' href='create-uaccount.php'><i class='fa fa-user-plus' aria-hidden='true'></i>Create User Account</a>
+                            </li>";
+                        }
+                    ?>
 
                     <li class="nav-item">
                         <a class="nav-link" href="manage-gallery.php"><i class="far fa-images"></i>Manage Gallery</a>
