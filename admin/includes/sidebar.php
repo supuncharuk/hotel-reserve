@@ -347,8 +347,25 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="create-uaccount.php"><i class="fa fa-user-plus" aria-hidden="true"></i>Create User Account</a>
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#users" aria-controls="users"><i class="fa fa-users" aria-hidden="true"></i>Users</a>
+                        <div id="users" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="create-uaccount.php">Create User Account</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="users.php">Manage Users</a>
+                                </li>
+
+                            </ul>
+                        </div>
                     </li>
+
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="create-uaccount.php"><i class="fa fa-user-plus" aria-hidden="true"></i>Create User Account</a>
+                    </li> -->
 
                     <li class="nav-item">
                         <a class="nav-link" href="manage-gallery.php"><i class="far fa-images"></i>Manage Gallery</a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 04, 2024 at 11:44 PM
+-- Generation Time: Nov 08, 2024 at 01:12 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -37,23 +37,28 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `checking_date` date NOT NULL,
   `checkout_date` date NOT NULL,
   `paid` tinyint(1) NOT NULL,
-  `discount` int DEFAULT NULL,
-  `vat` int DEFAULT NULL,
-  `total_payment` int DEFAULT NULL,
+  `vat` decimal(10,2) DEFAULT NULL,
+  `ssc_levy` decimal(10,2) DEFAULT NULL,
+  `discount` decimal(10,2) DEFAULT NULL,
+  `total_payment` decimal(10,2) DEFAULT NULL,
   `booking_ref` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`booking_id`),
   KEY `room_number` (`room_number`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`booking_id`, `room_number`, `customer_name`, `customer_email`, `customer_mobile`, `checking_date`, `checkout_date`, `paid`, `discount`, `vat`, `total_payment`, `booking_ref`) VALUES
-(1, 1, 'test', 'test@smaple.com', '0124563978', '2024-11-01', '2024-11-03', 0, NULL, NULL, NULL, ''),
-(22, 1, 'test', 'sample@gmail.com', '0715631245', '2024-11-23', '2024-11-24', 1, 0, 1800, 12050, 'booking_67294e4c97ff66.12364944'),
-(21, 1, 'test', 'sample@gmail.com', '0715631245', '2024-11-21', '2024-11-22', 0, NULL, NULL, NULL, 'booking_67294b4bebc5a1.48923254'),
-(20, 1, 'Adam', 'adam@gmail.com', '0715631693', '2024-11-03', '2024-11-04', 0, NULL, NULL, NULL, 'booking_67290ce5726d43.39911385');
+INSERT INTO `bookings` (`booking_id`, `room_number`, `customer_name`, `customer_email`, `customer_mobile`, `checking_date`, `checkout_date`, `paid`, `vat`, `ssc_levy`, `discount`, `total_payment`, `booking_ref`, `created_at`, `updated_at`) VALUES
+(38, 1, 'plyn', 'test@smaple.com', '0715631693', '2024-11-21', '2024-11-26', 1, 5400.00, 750.00, 0.00, 36150.00, 'booking_672db4356740f8.03824739', '2024-11-08 06:50:07', '2024-11-08 09:29:30'),
+(37, 88, 'Adam', 'adam@gmail.com', '0715631292', '2024-11-08', '2024-11-09', 1, 85140.00, 11825.00, 0.00, 569965.00, 'booking_672db32df11df7.24907877', '2024-11-08 06:50:07', '2024-11-08 09:43:26'),
+(44, 1, 'NEW', 'new@gmail.com', '0715631292', '2024-11-08', '2024-11-09', 1, 1800.00, 250.00, 0.00, 12050.00, 'booking_672e0444969752.96707388', '2024-11-08 12:29:56', '2024-11-08 12:30:08'),
+(46, 88, 'werewr', 'wer@sample.com', '0715631693', '2024-11-15', '2024-11-16', 1, 7740.00, 1075.00, 0.00, 51815.00, 'booking_672e04eeaa5769.75064838', '2024-11-08 12:32:46', '2024-11-08 12:33:01'),
+(47, 88, 'dssdf', 'adam@gmail.com', '0723654896', '2024-11-28', '2024-11-29', 1, 7740.00, 1075.00, 0.00, 51815.00, 'booking_672e05fb509093.73751640', '2024-11-08 12:37:15', '2024-11-08 12:45:04'),
+(48, 88, 'cccc', 'cc@gmail.com', '23424', '2024-11-21', '2024-11-22', 1, 7740.00, 1075.00, 0.00, 51815.00, 'booking_672e09bc2d46c7.14532994', '2024-11-08 12:53:16', '2024-11-08 12:54:40');
 
 -- --------------------------------------------------------
 
@@ -70,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `no_persons` int DEFAULT NULL,
   `ac_availability` varchar(3) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `room_price` int DEFAULT NULL,
-  `room_availability` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`room_number`)
@@ -80,9 +84,9 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`room_number`, `room_name`, `room_image_name`, `room_type`, `no_persons`, `ac_availability`, `room_price`, `room_availability`, `created_at`, `updated_at`) VALUES
-(88, 'edfsdfsd hbfvhfdbjhfd', 'room2.jpg', 'dffdsgf', 45, 'no', 435325, 0, '2024-10-24 15:04:30', '2024-10-24 15:15:18'),
-(1, 'Room 1', 'eight.jpg', 'Type 1', 3, 'yes', 10000, 0, '2024-10-06 15:59:48', '2024-10-24 15:20:06');
+INSERT INTO `rooms` (`room_number`, `room_name`, `room_image_name`, `room_type`, `no_persons`, `ac_availability`, `room_price`, `created_at`, `updated_at`) VALUES
+(88, 'edfsdfsd hbfvhfdbjhfd', 'room2.jpg', 'dffdsgf', 45, 'no', 43000, '2024-10-24 15:04:30', '2024-11-08 05:49:51'),
+(1, 'Room 1', 'eight.jpg', 'Type 1', 3, 'yes', 10000, '2024-10-06 15:59:48', '2024-10-24 15:20:06');
 
 -- --------------------------------------------------------
 
