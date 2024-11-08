@@ -8,7 +8,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Royal Hotel</title>
+        <title>Accomodation - Royal Hotel</title>
         
         <?php include_once ("includes/css-links-inc.php") ?>
     </head>
