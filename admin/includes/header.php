@@ -1,6 +1,6 @@
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="admin-dashboard.php">
             <!-- Concept -->
             <img src="assets/images/logo/logo-1.png" alt="royal-hotel-logo1">
         </a>
