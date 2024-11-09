@@ -47,9 +47,9 @@
                             while ($row = mysqli_fetch_assoc($result)){
                                 $ac_available = ($row['ac_availability'] == "yes") ? "A/C" : "Non A/C";
 
-                                echo "<div class='col-lg-3 col-sm-6'>
+                                echo "<div class='col-xl-3 col-lg-4 col-md-6 col-sm-12'>
                                     <div class='accomodation_item text-center'>
-                                        <div class='hotel_img'>
+                                        <div class='hotel_img' style='display:inline-block;'>
                                             <img src='admin/assets/images/rooms/" .$row['room_image_name']. "' alt=''>
                                             <a href='booking-details.php?room_id=".$row['room_number']."' class='btn theme_btn button_hover'>Book Now</a>
                                         </div>
@@ -83,9 +83,9 @@
                             while ($row = mysqli_fetch_assoc($result)){
                                 $ac_available = ($row['ac_availability'] == "yes") ? "A/C" : "Non A/C";
 
-                                echo "<div class='col-lg-3 col-sm-6'>
+                                echo "<div class='col-xl-3 col-lg-4 col-md-6 col-sm-12'>
                                     <div class='accomodation_item text-center'>
-                                        <div class='hotel_img'>
+                                        <div class='hotel_img' style='display:inline-block;'>
                                             <img src='admin/assets/images/rooms/" .$row['room_image_name']. "' alt=''>
                                             <a href='booking-details.php?room_id=".$row['room_number']."' class='btn theme_btn button_hover'>Book Now</a>
                                         </div>

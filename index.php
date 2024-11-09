@@ -34,46 +34,29 @@
                     <h2 class="title_color">Popular Hotel Accomodation</h2>
                 </div>
                 <div class="row mb_30">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img src="assets/image/room1.jpg" alt="">
-                                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                            </div>
-                            <a href="#"><h4 class="sec_h4">Double Deluxe Room</h4></a>
-                            <h5>$250<small>/night</small></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img src="assets/image/room2.jpg" alt="">
-                                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                            </div>
-                            <a href="#"><h4 class="sec_h4">Single Deluxe Room</h4></a>
-                            <h5>$200<small>/night</small></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img src="assets/image/room3.jpg" alt="">
-                                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                            </div>
-                            <a href="#"><h4 class="sec_h4">Honeymoon Suit</h4></a>
-                            <h5>$750<small>/night</small></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img src="assets/image/room4.jpg" alt="">
-                                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                            </div>
-                            <a href="#"><h4 class="sec_h4">Economy Double</h4></a>
-                            <h5>$200<small>/night</small></h5>
-                        </div>
-                    </div>
+                    <?php
+                        require_once ("admin/includes/config.php");
+                        $sql = "SELECT * FROM rooms ORDER BY room_name DESC LIMIT 4";
+                        $result = mysqli_query($conn,$sql);
+
+                        if (mysqli_num_rows($result)>0){
+                            while ($row = mysqli_fetch_assoc($result)){
+                                $ac_available = ($row['ac_availability'] == "yes") ? "A/C" : "Non A/C";
+
+                                echo "<div class='col-xl-3 col-lg-4 col-md-6 col-sm-12'>
+                                    <div class='accomodation_item text-center'>
+                                        <div class='hotel_img' style='display:inline-block;'>
+                                            <img src='admin/assets/images/rooms/" .$row['room_image_name']. "' alt=''>
+                                            <a href='booking-details.php?room_id=".$row['room_number']."' class='btn theme_btn button_hover'>Book Now</a>
+                                        </div>
+                                        <a href='#'><h4 class='sec_h4'>".$row['room_name']."</h4></a>
+                                        <h5>Rs. ".number_format($row['room_price'],2)."<small>/night</small></h5>
+                                        <h6>$ac_available, ".$row['no_persons']." Persons</h5>
+                                    </div>
+                                </div>";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </section>
