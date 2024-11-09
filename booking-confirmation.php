@@ -69,7 +69,7 @@
                                         <input type="hidden" name="booking_id" value="<?php echo $booking_id; ?>" readonly>
                                     </form>
                                     <!-- Visible button that triggers the form submission and initiates the redirect -->
-                                    <button onclick="downloadAndRedirect()" class="btn btn-warning w-100">Pay Later</button>
+                                    <button onclick="downloadAndRedirect()" class="btn btn-warning w-100" style="font-size:14px;">Pay Later</button>
                                 </div>
 
                                 <div class="col-sm-6">

@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-lg-4  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h6 class="footer_title">About Agency</h6>
-                    <p>The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
+                    <h6 class="footer_title">About Hotel</h6>
+                    <p style="text-align:justify;">Welcome to our hotel, where comfort meets convenience. Enjoy well-appointed rooms, modern amenities, and exceptional service for a memorable stay.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
@@ -31,7 +31,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="single-footer-widget">
                     <h6 class="footer_title">Newsletter</h6>
-                    <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>		
+                    <p>Subscribe to Our Newsletter</p>		                   
                     <div id="mc_embed_signup">
                         <form method="POST" class="subscribe_form relative">
                             <div class="input-group d-flex flex-row">

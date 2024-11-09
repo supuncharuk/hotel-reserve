@@ -20,8 +20,7 @@
 					<div class="banner_content text-center">
 						<h6>Away from monotonous life</h6>
 						<h2>Relax Your Mind</h2>
-						<p>If you are looking at blank cassettes on the web, you may be very confused at the<br> difference in price. You may see some for as low as $.17 each.</p>
-						<!-- <a href="#" class="btn theme_btn button_hover">Get Started</a> -->
+						<p style="font-size:16px;">Indulge in luxury and comfort at our exquisite hotel.<br> Experience world-class service, elegant accommodations, and breathtaking views. Unwind in our serene oasis,<br> where every detail is meticulously crafted to provide an unforgettable stay.</p>
 					</div>
 				</div>
             </div>
@@ -32,8 +31,7 @@
         <section class="accomodation_area section_gap">
             <div class="container">
                 <div class="section_title text-center">
-                    <h2 class="title_color">Hotel Accomodation</h2>
-                    <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast, </p>
+                    <h2 class="title_color">Popular Hotel Accomodation</h2>
                 </div>
                 <div class="row mb_30">
                     <div class="col-lg-3 col-sm-6">

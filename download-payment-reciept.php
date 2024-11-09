@@ -30,9 +30,9 @@
     $pdf->SetFont('helvetica', '', 12);
 
     // Fetch booking details (from previous step)
+    $booking_id = $record['booking_id']
     $customer_name = $record['customer_name'];
     $room_number = $record['room_number'];
-    // $room_type = $booking_details['room_type'];
     $check_in = $record['checking_date'];
     $check_out = $record['checkout_date'];
 
@@ -51,13 +51,14 @@
     // PDF content
     $html = "
     <h2>Room Payment Details</h2>
+    <p><strong>Customer Name:</strong> $booking_id</p>
     <p><strong>Customer Name:</strong> $customer_name</p>
     <p><strong>Room Number:</strong> $room_number</p>
     <p><strong>Check-In Date:</strong> $check_in</p>
+    p><strong>Check-In Time:</strong> 2:00 P.M.</p>
     <p><strong>Check-Out Date:</strong> $check_out</p>
+    <p><strong>Check-Out Time:</strong> 12.00 P.M.</p>
     <p><strong>Number of Days:</strong> $ndays</p>
-    <hr>
-
     <p><strong>VAT:</strong> Rs. $vat</p>
     <p><strong>SSC_Levy:</strong> Rs. $ssc_levy</p>
     <p><strong>Discount:</strong> Rs. $discount</p>

@@ -47,7 +47,7 @@
                             <div class="info_item">
                                 <i class="lnr lnr-home"></i>
                                 <h6>Labuduwa, Galle</h6>
-                                <p>Santa monica bullevard</p>
+                                <p>Send us your thoughts</p>
                             </div>
                             <div class="info_item">
                                 <i class="lnr lnr-phone-handset"></i>

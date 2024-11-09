@@ -63,14 +63,14 @@
             <div class="card-body">
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="needs-validation" method="post" novalidate>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="uname" name="uname" type="text" placeholder="Username" autocomplete="off" required>
+                        <input class="form-control form-control-lg" id="uname" name="uname" type="text" placeholder="Username" value="<?php echo isset($uname) ? $uname : '' ?>" required>
                         <div class="invalid-feedback">
                             Enter your username
                         </div>
                     </div>
                     
                     <div class="form-group input-group">
-                        <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" required>
+                        <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" value="<?php echo isset($password) ? $password : '' ?>" required>
                         <div class="input-group-append">
                             <span class="input-group-text" style="border-radius:2px; cursor: pointer;" id="togglePassword"><i class="fa fa-eye" style="font-size:18px;" aria-hidden="true"></i></span>
                         </div>

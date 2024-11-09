@@ -74,6 +74,7 @@
         </section>
         <!--================Breadcrumb Area =================-->
         
+        <?php include_once ("includes/testimonial-area.php") ?>
         
         <?php include_once ("includes/footer.php") ?>
         

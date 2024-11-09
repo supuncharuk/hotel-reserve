@@ -44,25 +44,12 @@
     }
     testimonialSlider();
     
-    //------- Mailchimp js --------//  
-
-    function mailChimp(){
-        $('#mc_embed_signup').find('form').ajaxChimp();
-    }
-    mailChimp();
-    
     /* ===== Parallax Effect===== */
 	
 	function parallaxEffect() {
     	$('.bg-parallax').parallax();
 	}
 	parallaxEffect();
-    
-    
-    $('select').niceSelect();
-    $('#datetimepicker11,#datetimepicker1').datetimepicker({
-        daysOfWeekDisabled: [0, 6]
-    });
     
      /*---------gallery isotope js-----------*/
     function galleryMasonry(){
